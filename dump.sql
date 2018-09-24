@@ -102,6 +102,10 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (5,'JYSK','jysk@jysk.com','123456','/local'),(6,'Webhallen','contact@webhallen.com','6789','/local2'),(7,'Elgiganten','contact@elgiganten.se','12345','/local3/image2.jpeg');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'new_schema'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -112,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-24 16:32:16
+-- Dump completed on 2018-09-24 18:37:39
