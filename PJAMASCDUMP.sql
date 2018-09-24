@@ -1,8 +1,11 @@
 -- MySQL dump 10.13  Distrib 5.1.73, for Win32 (ia32)
 --
+-- To import: mysql -u [användarnamn] -p[lösenord] [databasnamnet] < [filnamnet från git med given path].sql 
+-- exempel: mysql -u root -proot PJAMASCDATABASE < c:/users/chris/desktop/DATABASE.sql
 -- Host: localhost    Database: PJAMASC
 -- ------------------------------------------------------
 -- Server version	5.1.73-community
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
