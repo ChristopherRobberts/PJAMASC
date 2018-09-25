@@ -36,6 +36,13 @@ module.exports = {
         });
     },
 
+    getPassword: function getPassword(user) {
+        let query = `SELECT password FROM user WHERE name = '${user}'`;
+        con.query(query, function(err, result) {
+            console.log(result);
+        })
+    },
+
     deleteItem: function deleteItem(id) {
         let query = `CALL deleteItem(${id})`;
         con.query(query, (err) => {
