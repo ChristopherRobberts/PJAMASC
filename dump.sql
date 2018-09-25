@@ -1,6 +1,6 @@
 ﻿-- MySQL dump 10.13  Distrib 5.7.23, for Win64 (x86_64)
 --
--- Host: localhost    Database: pjamasc2
+-- Host: localhost    Database: new_schema
 -- ------------------------------------------------------
 -- Server version	5.7.23-log
 
@@ -36,7 +36,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (2,'Dator'),(4,'Die Hard'),(5,'Die Hard 2'),(8,'Die Hard 3'),(6,'Frozen'),(7,'Frozen 2'),(3,'Hammock'),(9,'H�rtork'),(10,'Laptop'),(1,'TV');
+INSERT INTO `product` VALUES (2,'Dator'),(4,'Die Hard'),(5,'Die Hard 2'),(8,'Die Hard 3'),(6,'Frozen'),(7,'Frozen 2'),(3,'Hammock'),(9,'Hårtork'),(10,'Laptop'),(1,'TV');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -48,19 +48,15 @@ DROP TABLE IF EXISTS `product_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_list` (
-  `sku` varchar(50) NOT NULL,
+  `SKU_ID` varchar(50) NOT NULL,
   `product` int(11) unsigned NOT NULL,
   `owner` int(11) unsigned NOT NULL,
   `description` varchar(255) NOT NULL,
   `image` varchar(30) NOT NULL,
   `quantity` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-<<<<<<< HEAD
   `last_modified` timestamp NOT NULL,
-=======
-  `last_modified` timestamp NOT NULL,
->>>>>>> 8d7718cf212eae019c2f3083f625fb3182eeb4e9
-  PRIMARY KEY (`sku`,`owner`),
+  PRIMARY KEY (`SKU_ID`,`owner`),
   KEY `FK_product_list_product` (`product`),
   KEY `FK_product_list_user` (`owner`),
   CONSTRAINT `FK_product_list_product` FOREIGN KEY (`product`) REFERENCES `product` (`id`),
@@ -108,108 +104,8 @@ INSERT INTO `user` VALUES (5,'JYSK','jysk@jysk.com','123456','/local'),(6,'Webha
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'pjamasc2'
+-- Dumping routines for database 'new_schema'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `deleteItem` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-<<<<<<< HEAD
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-=======
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
->>>>>>> 8d7718cf212eae019c2f3083f625fb3182eeb4e9
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteItem`(IN sku VARCHAR(50), IN owner INT(11))
-<<<<<<< HEAD
-BEGIN
-	DELETE FROM product_list
-    WHERE product_list.sku = sku
-	 AND product_list.owner = owner;
-=======
-BEGIN
-	DELETE FROM product_list
-    WHERE product_list.sku = sku
-	 AND product_list.owner = owner;
->>>>>>> 8d7718cf212eae019c2f3083f625fb3182eeb4e9
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getItems` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-<<<<<<< HEAD
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-=======
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
->>>>>>> 8d7718cf212eae019c2f3083f625fb3182eeb4e9
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getItems`(IN user INT(11))
-<<<<<<< HEAD
-BEGIN
-	SELECT * FROM product_list p
-    WHERE p.owner = user;
-=======
-BEGIN
-	SELECT * FROM product_list p
-    WHERE p.owner = user;
->>>>>>> 8d7718cf212eae019c2f3083f625fb3182eeb4e9
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `updateItemQuantity` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-<<<<<<< HEAD
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-=======
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
->>>>>>> 8d7718cf212eae019c2f3083f625fb3182eeb4e9
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateItemQuantity`(IN sku VARCHAR(50), IN owner INT(11), IN antal INT)
-<<<<<<< HEAD
-BEGIN
-UPDATE product_list
-SET product_list.quantity = product_list.quantity + antal
-WHERE product_list.sku = sku;
-=======
-BEGIN
-UPDATE product_list
-SET product_list.quantity = product_list.quantity + antal
-WHERE product_list.sku = sku;
->>>>>>> 8d7718cf212eae019c2f3083f625fb3182eeb4e9
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -220,4 +116,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-25 11:49:47
+-- Dump completed on 2018-09-24 18:37:39
