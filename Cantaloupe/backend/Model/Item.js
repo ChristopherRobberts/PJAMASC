@@ -7,14 +7,29 @@ var Item = function(name, sku, quantity, description, created, modified) {
     this.modified = modified;
 }
 
-User.prototype.name = function () {
+Item.prototype.getName = function () {
     return this.name;
 }
 
-User.prototype.sku = function () {
+Item.prototype.getSku = function () {
     return this.sku;
 }
 
-User.prototype.quantity = function () {
+Item.prototype.getQuantity = function () {
+    return this.guantity;
+}
+
+Item.prototype.getDescription = function () {
     return this.description;
 }
+
+Item.prototype.getCreated = function () {
+    return this.created;
+}
+
+Item.prototype.getModified = function () {
+    return this.modified;
+}
+
+var car = new Item("x70", "A32", 50, "Bla, Bla, Bla", "5/12", "15/8");
+console.log("An Item", car);
