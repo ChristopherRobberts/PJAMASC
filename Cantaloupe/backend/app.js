@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let dataBaseConnection = require('./integration/DataBaseConnection.js');
+let Controller = require('./Controller/Controller.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -40,5 +41,13 @@ app.use(function(err, req, res, next) {
 });
 
 dataBaseConnection.connection;
+
+Controller.getItems(5, (itemInformation) => {
+
+});
+
+Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
+    console.log("new quantity is: " + JSON.stringify(result[0]));
+});
 
 module.exports = app;

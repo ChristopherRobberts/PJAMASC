@@ -1,6 +1,22 @@
-let dataBaseConnection = require('./Integration/DataBaseConnection.js');
+let DataBaseConnection = require('../Integration/DataBaseConnection.js');
 
-let updateItemQuantity = (SKU, owner, amount, sign) => {
-    (sign < 0)? dataBaseConnection.updateItemQuantity(SKU, owner, -amount) :
-        dataBaseConnection.updateItemQuantity(SKU, owner, amount);
+module.exports = {
+
+    updateItemQuantity: (SKU, owner, amount, sign, fn) => {
+        if (sign < 0) {
+            DataBaseConnection.updateItemQuantity(SKU, owner, -1 * amount, (newAmount) => {
+                fn(newAmount);
+            })
+        } else {
+            DataBaseConnection.updateItemQuantity(SKU, owner, amount, (newAmount) => {
+                fn(newAmount);
+            });
+        }
+    },
+
+    getItems: (userID, fn) => {
+        DataBaseConnection.getItems(userID, (itemInformation) => {
+            fn(itemInformation);
+        })
+    }
 };
