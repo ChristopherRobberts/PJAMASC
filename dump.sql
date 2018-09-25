@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.23, for Win64 (x86_64)
+﻿-- MySQL dump 10.13  Distrib 5.7.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: new_schema
 -- ------------------------------------------------------
@@ -55,7 +55,7 @@ CREATE TABLE `product_list` (
   `image` varchar(30) NOT NULL,
   `quantity` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified` timestamp NOT NULL,
   PRIMARY KEY (`SKU_ID`,`owner`),
   KEY `FK_product_list_product` (`product`),
   KEY `FK_product_list_user` (`owner`),
