@@ -22,6 +22,19 @@ module.exports = {
         });
     },
 
+    //asks db for password of user
+       getPassword: function getPassword(user) {
+
+           try {
+               return con.query(`SELECT password FROM users WHERE name = '${user}'`);
+
+           } catch (ex) {
+               console.log("password not found");
+               return null;
+           }
+
+    },
+
     updateItemQuantity: function updateItemQuantity(sku, owner, quantity, fn) {
         let query = `CALL UpdateItemQuantity('${sku}', ${owner}, ${quantity})`;
         con.query(query, (err, result) => {
