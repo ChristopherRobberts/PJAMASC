@@ -51,5 +51,8 @@ Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
 });
 
 dataBaseConnection.getPassword("JYSK");
+Controller.deleteItems("SKU", 1, function(status) {
+    console.log(status);
+});
 
 module.exports = app;

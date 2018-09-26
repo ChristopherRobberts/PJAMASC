@@ -14,53 +14,60 @@ module.exports = {
         console.log("Connected!");
     }),
 
-    getItems: function getItems(user, fn) {
+    getItems: function (user, fn) {
         let query = `CALL getItems(${user})`;
-        con.query(query, (err, result) => {
-            (err)? console.log(err) : console.log("success!");
+        con.query(query, function (err, result) {
+            (err) ? fn(err) : fn("success!");
             fn(result[0]);
         });
     },
 
-    updateItemQuantity: function updateItemQuantity(sku, owner, quantity, fn) {
+    updateItemQuantity: function (sku, owner, quantity, fn) {
         let query = `CALL UpdateItemQuantity('${sku}', ${owner}, ${quantity})`;
         con.query(query, (err, result) => {
             if (err)
-                console.log(err);
+                fn(err);
             else {
                 con.query(`SELECT Quantity FROM product_list WHERE sku = '${sku}' AND owner = ${owner}`,
                     (err, result) => {
                         fn(result);
-                })
+                    })
             }
         });
     },
 
-    getPassword: function getPassword(user) {
+    getPassword: function (user) {
         let query = `SELECT password FROM user WHERE name = '${user}'`;
-        con.query(query, function(err, result) {
+        con.query(query, function (err, result) {
             console.log(result);
         })
     },
 
-    deleteItem: function deleteItem(id) {
-        let query = `CALL deleteItem(${id})`;
-        con.query(query, (err) => {
-            (err) ? console.log(err) : console.log("Item successfully deleted.");
+    deleteItem: function (sku, owner, fn) {
+        let query = `CALL deleteItem(${sku}, ${owner})`;
+        con.query(query, function (err) {
+            (err) ? fn("Item could not be deleted") : fn("Item was deleted successfully");
         })
     },
 
-    updateItemDescription: function updateItemDescription(id, description) {
-        let query = `CALL updateItemDescription(${id}, ${description})`;
+    updateItemDescription: function (sku, owner, description, fn) {
+        let query = `CALL updateItemDescription(${sku}, ${owner}, ${description})`;
         con.query(query, (err) => {
-            (err) ? console.log(err) : console.log("Item description successfully updated.");
+            (err) ? fn(err) : fn("Item description successfully updated.");
         })
     },
 
-    addItem: function addItem(id, sku, description, image, quantity, ownerId) {
-        let query = `CALL addItem(${id}, ${sku}, ${description}, ${image}, ${quantity}, ${ownerId})`;
+    addItem: function (sku, name, description, image, quantity, owner, fn) {
+        let query = `CALL addItem(${sku}, ${name}, ${owner}, ${description}, ${image}, ${quantity})`;
         con.query(query, (err) => {
-            (err) ? console.log(err) : console.log("Item successfully added.");
+            (err) ? fn("Something went wrong") : fn("Item successfully added.");
+        })
+    },
+
+    getUserInfo: function (userID, name, password, avatar, fn) {
+        let query = `CALL addItem(${name}, ${password}, ${@userID}, ${@name}, ${@avatar})`;
+        con.query(query, function (err, result) {
+
         })
     }
 };
