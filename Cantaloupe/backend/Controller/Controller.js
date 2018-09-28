@@ -42,5 +42,8 @@ module.exports = {
         DataBaseConnection.getUserInfo(userID, name, password, avatar, function (returnedInformation) {
             fn(returnedInformation);
         })
+    },
+    login: function (user, password) {
+        return DataBaseConnection.login(user, password);
     }
 };
