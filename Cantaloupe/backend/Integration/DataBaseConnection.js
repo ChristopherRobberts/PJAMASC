@@ -1,5 +1,17 @@
 let connection = require('mysql');
-//let encrypter = require('../encryption/encryption.js');
+//let encrypter = require('../encryption/encryption');
+
+function validatePassword(hash, pass){
+    console.log("validating");
+    console.log(hash);
+    console.log(pass);
+
+    return hash === pass;
+}
+
+function generateHash(pass){
+    return pass;
+}
 
 let con = connection.createConnection({
         host: "localhost",
@@ -38,21 +50,42 @@ module.exports = {
     },
 
     getPassword: function (user) {
+
+        let query = `SELECT password FROM user WHERE name = '${user}'`;
+        //let query = `SELECT password * FROM user`;
+        con.query(query, function (err, result) {
+console.log(result);
+            return result[0].password;
+            //console.log(result);
+        })
+
+
+    },
+
+    login: function (user, password) {
         let query = `SELECT password FROM user WHERE name = '${user}'`;
         con.query(query, function (err, result) {
-            console.log(result);
-        })
+            console.log("jag är här");
+            //console.log(result);
+            console.log(result[0].password);
+            return result[0].password;
+            //console.log("password");
+            //console.log(result);
+            /*
+            if(result == null){
+                console.log('password not found');
+                return false;
+            }
+            //asks encrypter to validate that the encrypted password is compatible with the plaintext password
+            return validatePassword(result[0].password, password);
+            */
+        });
+        //console.log(encryptedPassword);
+
+
+
     },
-    /*
-    login: function (user, password) {
-        let encryptedPassword = `SELECT password FROM user WHERE name = '${user}'`;
-        if(encryptedPassword == null){
-            console.log('password not found');
-            return false;
-        }
-        return encrypter.validatePass(encryptedPassword, password);
-    },
-    */
+
     deleteItem: function (sku, owner, fn) {
         let query = `CALL deleteItem(${sku}, ${owner})`;
         con.query(query, function (err) {
@@ -74,10 +107,29 @@ module.exports = {
         })
     },
 
-    getUserInfo: function (userID, name, password, avatar, fn) {
-        //let query = `CALL addItem(${name}, ${password}, ${@userID}, ${@name}, ${@avatar})`;
-        //con.query(query, function (err, result) {
+    getUserInfo: function (name) {
+        let query = `CALL getUserInfo(${name})`;
+        con.query(query, function (err, result) {
+            if(err){
+                return null;
+            }else{
+                return result;
+            }
+        })
+    },
 
-        //})
-    }
+    addUser: function (name, email, password, avatar) {
+        let hash = getHash(password);
+        if(hash==null){
+            return false;
+        }
+        let query = `CALL addUser(${name}, ${email}, ${hash}, ${avatar})`;
+        con.query(query, function (err, result) {
+            if (err) {
+                return false;
+            }else {
+                return true;
+            }
+            })
+    },
 };

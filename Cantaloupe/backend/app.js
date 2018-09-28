@@ -49,8 +49,11 @@ Controller.getItems(5, (itemInformation) => {
 Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
     console.log("new quantity is: " + JSON.stringify(result[0]));
 });
-
-dataBaseConnection.getPassword("JYSK");
+console.log("get password of JYSK");
+console.log(dataBaseConnection.getPassword("JYSK"));
+console.log("get password of JYSK");
+console.log("logging in");
+console.log(dataBaseConnection.login("JYSK", "123456"));
 //Controller.deleteItems("SKU", 1, function(status) {
   //  console.log(status);
 //});
