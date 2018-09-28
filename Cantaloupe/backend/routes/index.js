@@ -1,8 +1,6 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
-router.use(bodyParser.urlencoded({ extended: true}));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -14,10 +12,31 @@ router.get('/dashboard', function(req, res, next) {
 });
 
 router.post('/dashboard', function(req, res) {
-    var username = req.body.uname;
-    var password = req.body.pword;
+    let username = req.body.uname;
+    let password = req.body.pword;
+
+    /* Validate login form input
+    req.checkBody('username', 'Username is required').notEmpty();
+    req.checkBody('password', 'Password is required').notEmpty();
+
+    let errors = req.validationErrors();
+
+    if(errors){
+
+        req.session.errors = errors;
+        req.session.success = false;
+        res.render('dashboard');
+
+    } else {
+
+        req.session.success = true;
+        res.render('/');
+    }
+    */
+
     // Need to make a call to the controller to check if the user exists in the db
     res.render('dashboard', { 'username': username, 'password': password});
 });
+
 
 module.exports = router;

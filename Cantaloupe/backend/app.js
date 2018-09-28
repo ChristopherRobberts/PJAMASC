@@ -20,6 +20,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Form validation and sanitization
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const expressValidator = require('express-validator');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
+app.use(cookieParser());
+app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
