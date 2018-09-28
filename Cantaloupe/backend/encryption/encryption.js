@@ -32,16 +32,16 @@ getHash: function generateHash(password){
 
 },
 
-validatePass: function validatePassword(user, password){
+validatePass: function validatePassword(hash, password){
 
     //asks dataHandler to provide the password of the user.
-    let storedPassword = dataHandler.getPassword(user);
-    if(storedPassword == null){
-        console.log('password not found');
-        return false;
-    }
+    //let storedPassword = dataHandler.getPassword(user);
+    //if(storedPassword == null){
+    //    console.log('password not found');
+    //    return false;
+    //}
         //validates the password: true/false and returns.
-        return bcrypt.compareSync(password, storedPassword)
+        return bcrypt.compareSync(password, hash)
 
 }
 
