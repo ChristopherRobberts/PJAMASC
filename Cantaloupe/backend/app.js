@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let dataBaseConnection = require('./integration/DataBaseConnection.js');
 let Controller = require('./Controller/Controller.js');
+const util = require('util');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -42,17 +43,16 @@ app.use(function(err, req, res, next) {
 
 dataBaseConnection.connection;
 
-Controller.getItems(5, (itemInformation) => {
 
+Controller.getUserInfo("JYSK", "123456", function(userInfo) {
+    console.log(userInfo);
 });
+
 
 Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
     console.log("new quantity is: " + JSON.stringify(result[0]));
 });
-console.log("get password of JYSK");
 console.log(dataBaseConnection.getPassword("JYSK"));
-console.log("get password of JYSK");
-console.log("logging in");
 console.log(dataBaseConnection.login("JYSK", "123456"));
 //Controller.deleteItems("SKU", 1, function(status) {
   //  console.log(status);

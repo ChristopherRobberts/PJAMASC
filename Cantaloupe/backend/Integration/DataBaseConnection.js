@@ -107,6 +107,7 @@ console.log(result);
         })
     },
 
+    /*
     getUserInfo: function (name) {
         let query = `CALL getUserInfo(${name})`;
         con.query(query, function (err, result) {
@@ -117,7 +118,7 @@ console.log(result);
             }
         })
     },
-
+    */
     addUser: function (name, email, password, avatar) {
         let hash = getHash(password);
         if(hash==null){
@@ -132,4 +133,13 @@ console.log(result);
             }
             })
     },
+
+
+    getUserInfo: function (name, password, fn) {
+        let query = `CALL getUserInfo(${name}, ${password}, @userID, @name, @avatar)`;
+        con.query(query, function (err, result) {
+            (err) ? fn(err) : fn(result);
+        })
+    }
 };
+
