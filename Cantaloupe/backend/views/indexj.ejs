@@ -19,6 +19,13 @@
 
         <!-- Include subview loginbar -->
         <!--php include 'subviews/loginbar.html';-->
+      <ul>
+          <form name="loginForm" action = "views/dashboard.html" onsubmit="return validateForm()" method="post">
+              <li><a><input type="submit" id="loginbtn" value="Log in"></a></li>
+              <li><b>Password <input type="password" name="pword"></b></li>
+              <li><b>Username <input type="text" name="uname"></b></li>
+          </form>
+      </ul>
 
         <div id=maincol>
 

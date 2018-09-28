@@ -12,6 +12,29 @@
         <script src="https://unpkg.com/vue"></script>
 
         <title>Cantaloupe</title>
+        <script>
+            function validateForm() {
+                var uname = document.forms["loginForm"]["uname"].value;
+                var pword = document.forms["loginForm"]["pword"].value;
+                if (uname == "") {
+                    alert("Username must be filled out");
+                    return false;
+                }
+                if (pword == "") {
+                    alert("Username must be filled out");
+                    return false;
+                }
+                if (uname == "incorrect") {
+                    alert("Login failed - incorrect username or password");
+                    return false;
+                }
+                if (pword == "incorrect") {
+                    alert("Login failed - incorrect username or password");
+                    return false;
+                }
+
+            }
+      </script>
 
     </head>
 
