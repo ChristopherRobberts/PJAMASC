@@ -65,7 +65,7 @@ module.exports = {
     },
 
     getUserInfo: function (userID, name, password, avatar, fn) {
-        let query = `CALL addItem(${name}, ${password}, ${@userID}, ${@name}, ${@avatar})`;
+        let query = `CALL addItem(${name}, ${password}, ${userID}, ${name}, ${avatar})`;
         con.query(query, function (err, result) {
 
         })
