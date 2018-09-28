@@ -26,14 +26,7 @@ module.exports = {
     updateItemQuantity: function (sku, owner, quantity, fn) {
         let query = `CALL UpdateItemQuantity('${sku}', ${owner}, ${quantity})`;
         con.query(query, (err, result) => {
-            if (err)
-                fn(err);
-            else {
-                con.query(`SELECT Quantity FROM product_list WHERE sku = '${sku}' AND owner = ${owner}`,
-                    (err, result) => {
-                        fn(result);
-                    })
-            }
+            (err)? fn(err) : fn(result);
         });
     },
 
@@ -75,7 +68,7 @@ module.exports = {
     },
 
     getUserInfo: function (name, password, fn) {
-        let query = `CALL getUserInfo(${name}, ${password}, @userID, @name, @avatar)`;
+        let query = `CALL getUserInfo('${name}', '${password}', @userID, @name, @avatar)`;
         con.query(query, function (err, result) {
             (err) ? fn(err) : fn(result);
         })
