@@ -2,9 +2,10 @@ let connection = require('mysql');
 
 /*
 * test functions for password validation
+* validatePassword, getHash
 * */
 
-//let encrypter = require('../encryption/encryption');
+let encrypter = require('../encryption/encryption');
 
 function validatePassword(hash, pass) {
     console.log("validating");
@@ -26,7 +27,6 @@ let con = connection.createConnection({
     }
 );
 
-
 module.exports = {
     connection: con.connect(function (err) {
         if (err) throw err;
@@ -47,7 +47,7 @@ module.exports = {
             (err) ? fn(err) : fn(result);
         });
     },
-
+/*
     getPassword: function (user) {
         let query = `SELECT password FROM user WHERE name = '${user}'`;
         //let query = `SELECT password * FROM user`;
@@ -67,20 +67,20 @@ module.exports = {
             return result[0].password;
             //console.log("password");
             //console.log(result);
-            /*
-            if(result == null){
-                console.log('password not found');
-                return false;
-            }
+
+            //if(result == null){
+            //    console.log('password not found');
+            //    return false;
+            //}
             //asks encrypter to validate that the encrypted password is compatible with the plaintext password
-            return validatePassword(result[0].password, password);
-            */
+            //return validatePassword(result[0].password, password);
+
         });
         //console.log(encryptedPassword);
 
 
     },
-
+*/
     deleteItem: function (sku, owner, fn) {
         let query = `CALL deleteItem('${sku}', ${owner})`;
         con.query(query, function (err, result) {
@@ -130,9 +130,19 @@ module.exports = {
 
 
     getUserInfo: function (name, password, fn) {
-        let query = `CALL getUserInfo('${name}', '${password}')`;
+        let hash = encrypter.getHash(password);
+
+        let query = `CALL getUserInfo('${name}', '${hash}')`;
+
         con.query(query, function (err, result) {
-            (err) ? fn(err) : fn(result);
+            if(err) console.log(err);
+            else {
+                //arguments: stored hash value of password, inputted password
+                if (encrypter.validatePass(result[0].password, password)){
+                    fn(result);
+                }
+            }
+
         })
     }
 };
