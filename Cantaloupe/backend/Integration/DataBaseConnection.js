@@ -1,10 +1,11 @@
 let connection = require('mysql');
+//let encrypter = require('../encryption/encryption.js');
 
 let con = connection.createConnection({
         host: "localhost",
         user: "root",
         password: "root",
-        database: "pjamasc"
+        database: "cantaloupe",
     }
 );
 
@@ -42,7 +43,16 @@ module.exports = {
             console.log(result);
         })
     },
-
+    /*
+    login: function (user, password) {
+        let encryptedPassword = `SELECT password FROM user WHERE name = '${user}'`;
+        if(encryptedPassword == null){
+            console.log('password not found');
+            return false;
+        }
+        return encrypter.validatePass(encryptedPassword, password);
+    },
+    */
     deleteItem: function (sku, owner, fn) {
         let query = `CALL deleteItem(${sku}, ${owner})`;
         con.query(query, function (err) {
@@ -65,9 +75,8 @@ module.exports = {
     },
 
     getUserInfo: function (userID, name, password, avatar, fn) {
-        let query = `CALL addItem(${name}, ${password}, ${userID}, ${name}, ${avatar})`;
-        con.query(query, function (err, result) {
-
-        })
+        //let query = `CALL addItem(${name}, ${password}, ${@userID}, ${@name}, ${@avatar})`;
+        //con.query(query, function (err, result) {
+        //})
     }
 };

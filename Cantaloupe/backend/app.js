@@ -52,6 +52,11 @@ Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
     log(result);
 });
 
-const log = obj => { console.log(util.inspect(obj, false, null))};
+
+dataBaseConnection.getPassword("JYSK");
+//Controller.deleteItems("SKU", 1, function(status) {
+  //  console.log(status);
+//});
+
 
 module.exports = app;
