@@ -1,7 +1,12 @@
 let connection = require('mysql');
+
+/*
+* test functions for password validation
+* */
+
 //let encrypter = require('../encryption/encryption');
 
-function validatePassword(hash, pass){
+function validatePassword(hash, pass) {
     console.log("validating");
     console.log(hash);
     console.log(pass);
@@ -9,7 +14,7 @@ function validatePassword(hash, pass){
     return hash === pass;
 }
 
-function generateHash(pass){
+function generateHash(pass) {
     return pass;
 }
 
@@ -38,21 +43,18 @@ module.exports = {
     updateItemQuantity: function (sku, owner, quantity, fn) {
         let query = `CALL UpdateItemQuantity('${sku}', ${owner}, ${quantity})`;
         con.query(query, (err, result) => {
-            (err)? fn(err) : fn(result);
+            (err) ? fn(err) : fn(result);
         });
     },
 
     getPassword: function (user) {
-
         let query = `SELECT password FROM user WHERE name = '${user}'`;
         //let query = `SELECT password * FROM user`;
         con.query(query, function (err, result) {
-console.log(result);
+            console.log(result);
             return result[0].password;
             //console.log(result);
         })
-
-
     },
 
     login: function (user, password) {
@@ -74,7 +76,6 @@ console.log(result);
             */
         });
         //console.log(encryptedPassword);
-
 
 
     },
@@ -114,17 +115,17 @@ console.log(result);
     */
     addUser: function (name, email, password, avatar) {
         let hash = getHash(password);
-        if(hash==null){
+        if (hash == null) {
             return false;
         }
         let query = `CALL addUser(${name}, ${email}, ${hash}, ${avatar})`;
         con.query(query, function (err, result) {
             if (err) {
                 return false;
-            }else {
+            } else {
                 return true;
             }
-            })
+        })
     },
 
 

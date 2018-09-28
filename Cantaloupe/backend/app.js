@@ -43,26 +43,8 @@ app.use(function(err, req, res, next) {
 
 dataBaseConnection.connection;
 
-
-/*Controller.getUserInfo("JYSK", "123456", function(userInfo) {
-    console.log(userInfo);
-});*/
-
-Controller.updateItemQuantity("AB000001", 5, 20, -1, function(result) {
-    console.log(getRDP(result)[0].quantity);
-});
-
-const getRDP = (array)=>{
-    return array[0];
-};
-
-Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
-    console.log("new quantity is: " + JSON.stringify(result[0]));
-});
-console.log(dataBaseConnection.getPassword("JYSK"));
-console.log(dataBaseConnection.login("JYSK", "123456"));
-//Controller.deleteItems("SKU", 1, function(status) {
-  //  console.log(status);
-//});
+/*
+* Tests for the database calls.
+* */
 
 module.exports = app;
