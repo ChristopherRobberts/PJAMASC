@@ -4,7 +4,7 @@ let con = connection.createConnection({
         host: "localhost",
         user: "root",
         password: "root",
-        database: "pjamasc"
+        database: "cantaloupe"
     }
 );
 
