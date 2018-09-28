@@ -1,10 +1,40 @@
-<html>
-<head>
-<title>Basic web page
-</title>
-</head>
-<body>
-  <h1>PJAMASC</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui sapien eget mi proin sed libero enim. Aliquet sagittis id consectetur purus ut. Est ullamcorper eget nulla facilisi etiam dignissim diam. Blandit aliquam etiam erat velit scelerisque in dictum non consectetur. Sed ullamcorper morbi tincidunt ornare massa. Sed velit dignissim sodales ut eu sem integer vitae justo. Hendrerit gravida rutrum quisque non tellus orci. Pellentesque nec nam aliquam sem et tortor consequat id. Sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis. Pulvinar pellentesque habitant morbi tristique senectus et netus et. Sed arcu non odio euismod lacinia at quis. Integer eget aliquet nibh praesent tristique.</p>
-</body>
+
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link href="/pjamasc/resources/css/reset.css" rel="stylesheet">
+        <link href="/pjamasc/resources/css/general.css" rel="stylesheet">
+        <link href="/pjamasc/resources/css/specific.css" rel="stylesheet">
+
+        <title>Cantaloupe</title>
+
+    </head>
+
+    <body>
+
+      <div class="wrapper">
+
+        <!-- Include subview loginbar -->
+        <?php include 'subviews/loginbar.html';?>
+
+        <div id=maincol>
+
+          <img id="portrait" src = "/pjamasc/resources/images/me.png" alt="img src error" height="300">
+
+          <H1 class="front-text title">
+            Cantaloupe Inventory System
+          </H1>
+          <span class="front-text">
+            Vad du vill för att- .. oh shit
+          </span>
+
+        </div>
+
+      </div>
+
+    </body>
+
 </html>
