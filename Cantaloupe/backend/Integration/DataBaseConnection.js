@@ -14,7 +14,7 @@ function validatePassword(hash, pass) {
     return hash === pass;
 }
 
-function generateHash(pass) {
+function getHash(pass) {
     return pass;
 }
 
@@ -25,6 +25,7 @@ let con = connection.createConnection({
         database: "cantaloupe",
     }
 );
+
 
 module.exports = {
     connection: con.connect(function (err) {
@@ -94,13 +95,12 @@ module.exports = {
         })
     },
 
-    addItem: function (sku, name, description, image, quantity, owner, fn) {
-        let query = `CALL addItem(${sku}, ${name}, ${owner}, ${description}, ${image}, ${quantity})`;
-        con.query(query, (err) => {
-            (err) ? fn("Something went wrong") : fn("Item successfully added.");
+    addItem: function (sku, name, owner, description, image, quantity, fn) {
+        let query = `CALL addItem('${sku}', '${name}', ${owner}, '${description}', '${image}', ${quantity})`;
+        con.query(query, (err, result) => {
+            (err) ? fn(err) : fn(result);
         })
     },
-
     /*
     getUserInfo: function (name) {
         let query = `CALL getUserInfo(${name})`;
@@ -113,27 +113,26 @@ module.exports = {
         })
     },
     */
-    addUser: function (name, email, password, avatar) {
+    addUser: function (name, email, password, avatar, fn) {
         let hash = getHash(password);
         if (hash == null) {
             return false;
         }
-        let query = `CALL addUser(${name}, ${email}, ${hash}, ${avatar})`;
+        let query = `CALL addUser('${name}', '${email}', '${hash}', '${avatar}')`;
         con.query(query, function (err, result) {
             if (err) {
-                return false;
+                fn(err);
             } else {
-                return true;
+                fn(result);
             }
         })
     },
 
 
     getUserInfo: function (name, password, fn) {
-        let query = `CALL getUserInfo('${name}', '${password}', @userID, @name, @avatar)`;
+        let query = `CALL getUserInfo('${name}', '${password}')`;
         con.query(query, function (err, result) {
             (err) ? fn(err) : fn(result);
         })
     }
 };
-

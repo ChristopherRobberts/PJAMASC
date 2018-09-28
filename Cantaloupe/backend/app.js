@@ -47,4 +47,13 @@ dataBaseConnection.connection;
 * Tests for the database calls.
 * */
 
+//WORKS(soon)
+/*Controller.addItem("AB000001", "tv3000", 7, "best tv eu", "abc", 50, function(status) {
+    console.log(status);
+});*/
+
+Controller.addUser("Shareef", "shareef@gmail.com", "shareef123", "shareef.png", function(status) {
+    console.log(status);
+});
+
 module.exports = app;

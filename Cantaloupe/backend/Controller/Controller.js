@@ -16,6 +16,12 @@ module.exports = {
         }
     },
 
+    addUser: function (name, email, password, avatar, fn) {
+        DataBaseConnection.addUser(name, email, password, avatar, function(status) {
+            fn(status);
+        })
+    },
+
     getItems: function (userID, fn) {
         DataBaseConnection.getItems(userID, function (itemInformation) {
             fn(itemInformation);
@@ -28,8 +34,8 @@ module.exports = {
         });
     },
 
-    addItem: function (sku, owner, quantity, image, description, name, fn) {
-        DataBaseConnection.addItem(sku, name, description, image, quantity, owner, function (status) {
+    addItem: function (sku, name, owner, description, image, quantity, fn) {
+        DataBaseConnection.addItem(sku, name, owner, description, image, quantity, function (status) {
             fn(status);
         })
     },

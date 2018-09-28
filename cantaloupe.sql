@@ -213,13 +213,9 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserInfo`(
 	IN username VARCHAR(255), 
-    IN userpwd VARCHAR(255), 
-    OUT uID INT(11), 
-    OUT uName VARCHAR(255), 
-    OUT uAvatar VARCHAR(255))
+    IN userpwd VARCHAR(255))
 BEGIN
-    SELECT id, user.name, user.avatar 
-    INTO uID, uName, uAvatar
+    SELECT id, user.name, user.avatar
 	FROM user 
 	WHERE (user.name = username 
     OR user.email = username)
@@ -289,4 +285,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-28 11:12:58
+-- Dump completed on 2018-09-28 11:58:49
