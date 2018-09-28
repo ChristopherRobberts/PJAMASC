@@ -43,20 +43,10 @@ app.use(function(err, req, res, next) {
 
 dataBaseConnection.connection;
 
-Controller.getItems(5, (itemInformation) => {
 
+Controller.getUserInfo("JYSK", "123456", function(userInfo) {
+    console.log(userInfo);
 });
-
-Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
-    //console.log("new quantity is: " + result[0].Quantity);
-    log(result);
-});
-
-
-dataBaseConnection.getPassword("JYSK");
-//Controller.deleteItems("SKU", 1, function(status) {
-  //  console.log(status);
-//});
 
 
 module.exports = app;

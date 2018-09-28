@@ -74,9 +74,10 @@ module.exports = {
         })
     },
 
-    getUserInfo: function (userID, name, password, avatar, fn) {
-        //let query = `CALL addItem(${name}, ${password}, ${@userID}, ${@name}, ${@avatar})`;
-        //con.query(query, function (err, result) {
-        //})
+    getUserInfo: function (name, password, fn) {
+        let query = `CALL getUserInfo(${name}, ${password}, @userID, @name, @avatar)`;
+        con.query(query, function (err, result) {
+            (err) ? fn(err) : fn(result);
+        })
     }
 };

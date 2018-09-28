@@ -38,8 +38,8 @@ module.exports = {
         })
     },
 
-    getUserInfo: function (userID, name, password, avatar, fn) {
-        DataBaseConnection.getUserInfo(userID, name, password, avatar, function (returnedInformation) {
+    getUserInfo: function (name, password, fn) {
+        DataBaseConnection.getUserInfo(name, password, function (returnedInformation) {
             fn(returnedInformation);
         })
     },
