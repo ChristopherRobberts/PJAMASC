@@ -50,4 +50,9 @@ Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
     console.log("new quantity is: " + JSON.stringify(result[0]));
 });
 
+dataBaseConnection.getPassword("JYSK");
+Controller.deleteItems("SKU", 1, function(status) {
+    console.log(status);
+});
+
 module.exports = app;
