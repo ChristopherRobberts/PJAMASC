@@ -126,12 +126,12 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addItem`(IN sku VARCHAR(50), IN product VARCHAR(255), IN owner INT(11), IN description VARCHAR(255), IN image VARCHAR(255), IN amount INT)
 BEGIN
 	DECLARE product_id INT(11);
-    DECLARE timestamp INT;
-    SET timestamp = CURRENT_TIMESTAMP();
+    DECLARE utimestamp TIMESTAMP;
+    SET utimestamp = CURRENT_TIMESTAMP();
     INSERT IGNORE INTO `product`(name) VALUES(product);
     SET product_id = (SELECT `id` FROM `product` WHERE `name` = product);
     INSERT INTO `product_list`(sku, product, owner, description, image, quantity, created, last_modified)
-    VALUES(sku, product_id, owner, description, image, quantity, timestamp, timestamp);
+    VALUES(sku, product_id, owner, description, image, quantity, utimestamp, utimestamp);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

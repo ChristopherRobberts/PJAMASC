@@ -33,8 +33,8 @@ module.exports = {
         console.log("Connected!");
     }),
 
-    getItems: function (user, fn) {
-        let query = `CALL getItems(${user})`;
+    getItems: function (owner, fn) {
+        let query = `CALL getItems(${owner})`;
         con.query(query, function (err, result) {
             (err) ? fn(err) : fn("success!");
             fn(result[0]);
@@ -82,16 +82,16 @@ module.exports = {
     },
 
     deleteItem: function (sku, owner, fn) {
-        let query = `CALL deleteItem(${sku}, ${owner})`;
-        con.query(query, function (err) {
-            (err) ? fn("Item could not be deleted") : fn("Item was deleted successfully");
+        let query = `CALL deleteItem('${sku}', ${owner})`;
+        con.query(query, function (err, result) {
+            (err) ? fn(err) : fn(result);
         })
     },
 
     updateItemDescription: function (sku, owner, description, fn) {
-        let query = `CALL updateItemDescription(${sku}, ${owner}, ${description})`;
-        con.query(query, (err) => {
-            (err) ? fn(err) : fn("Item description successfully updated.");
+        let query = `CALL updateItemDescription('${sku}', ${owner}, '${description}')`;
+        con.query(query, (err, result) => {
+            (err) ? fn(err) : fn(result);
         })
     },
 

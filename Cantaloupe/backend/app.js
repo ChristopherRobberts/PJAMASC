@@ -48,12 +48,43 @@ dataBaseConnection.connection;
 * */
 
 //WORKS(soon)
-/*Controller.addItem("AB000001", "tv3000", 7, "best tv eu", "abc", 50, function(status) {
+/*
+Controller.addItem("AB0000024", "tv3000", 7, "best tv eu", "abc", 50, function(status) {
     console.log(status);
 });*/
 
-Controller.addUser("Shareef", "shareef@gmail.com", "shareef123", "shareef.png", function(status) {
+//FUNKAR
+
+Controller.getUserInfo("JYSK", "123456", function(status) {
     console.log(status);
 });
 
+
+//FUNKAR
+/*
+Controller.deleteItems("AB0000024", 7, function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.getItems(7, function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.updateItemDescription("AB000001", 5, "bajskorv", function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.updateItemQuantity("AB000001", 5, 10, 1, function(status) {
+   console.log(status);
+});
+*/
 module.exports = app;

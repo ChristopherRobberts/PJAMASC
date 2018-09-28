@@ -22,8 +22,8 @@ module.exports = {
         })
     },
 
-    getItems: function (userID, fn) {
-        DataBaseConnection.getItems(userID, function (itemInformation) {
+    getItems: function (owner, fn) {
+        DataBaseConnection.getItems(owner, function (itemInformation) {
             fn(itemInformation);
         })
     },
@@ -40,8 +40,8 @@ module.exports = {
         })
     },
 
-    updateItemDescription: function (sku, owner, quantity, fn) {
-        DataBaseConnection.updateItemQuantity(sku, owner, quantity, function (updateStatus) {
+    updateItemDescription: function (sku, owner, description, fn) {
+        DataBaseConnection.updateItemDescription(sku, owner, description, function (updateStatus) {
             fn(updateStatus);
         })
     },
@@ -51,7 +51,8 @@ module.exports = {
             fn(returnedInformation);
         })
     },
-    login: function (user, password) {
-        return DataBaseConnection.login(user, password);
-    }
+    //login: function (user, password) {
+    //
+    //    return DataBaseConnection.login(user, password);
+    //}
 };
