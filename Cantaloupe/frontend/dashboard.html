@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
@@ -53,11 +54,11 @@
                 <th class="item-cell product"> {{ item.username }} product
                   <button class="insertbtn" @click="editproduct(item)">insert</button>
                 </th>
-                <th class="item-cell description" @click="showdiv('product', 'description');">
+                <th class="item-cell description" @click="showdiv(item.product, item.description);">
                   {{item.description}}description
-                  <button class="insertbtn" @click="editdescription(item)">insert</button>
+                  <button class="insertbtn" @click="editdescription('sku','user','desc')">insert</button>
                 </th>
-                <th class="item-cell image">
+                <th class="item-cell image" @click="showdiv(item.product, item.image);">
                   {{item.image}} image
                   <button class="insertbtn" @click="editimage(item)">insert</button>
                 </th>
@@ -128,6 +129,25 @@
           methods:
           {
             //--------METHODS-------
+            editdescription(sku,user,desc)
+            {
+              $.ajax({
+                method: 'POST',
+                url: '../public/api/editdescription.php',
+                data:
+                {
+                  //SKU + user together identify item:
+                  item_sku: sku,
+                  item_user: user,
+                  //The new product name
+                  edit_product: desc
+                }
+              }).done(function(data)
+              {
+                console.log('edited product')
+                this.getAllItems()
+              }.bind(this))
+            },
             getAllItems()
             {
               $.ajax({
@@ -164,6 +184,45 @@
 
 
             //----------EVENTS-----------
+
+            editimage(item)
+            {
+              $.ajax({
+                method: 'POST',
+                url: '../public/api/editimage.php',//TODO js
+                data:
+                {
+                  //SKU + user together identify item:
+                  /*item_sku: item.sku,
+                  item_user: item.user,*/
+                  //The new product name
+                  edit_image: this.image //TODO image format?
+                }
+              }).done(function(data)
+              {
+                console.log('edited image')
+                this.getAllItems()
+              }.bind(this))
+            },
+            editquantity(item)
+            {
+              $.ajax({
+                method: 'POST',
+                url: '../public/api/editquantity.php', //TODO js
+                data:
+                {
+                  //SKU + user together identify item:
+                  item_sku: item.sku,
+                  item_user: item.user,
+                  //The new product name
+                  edit_product: this.quantity
+                }
+              }).done(function(data)
+              {
+                console.log('edited quantity')
+                this.getAllItems()
+              }.bind(this))
+            },
             showdiv(product, data)
             {
 
@@ -176,6 +235,25 @@
               //document.getElementById('info').innerHTML = product;
               //document.getElementById('data').innerHTML = data;
 
+            },
+            editproduct(item)
+            {
+              $.ajax({
+                method: 'POST',
+                url: '../public/api/editproduct.php',
+                data:
+                {
+                  //SKU + user together identify item:
+                  item_sku: item.sku,
+                  item_user: item.user,
+                  //The new product name
+                  edit_product: this.product
+                }
+              }).done(function(data)
+              {
+                console.log('edited product')
+                this.getAllItems()
+              }.bind(this))
             },
             submititem(event)
             {
@@ -200,83 +278,6 @@
 
           },
 
-          //------EDIT EVENTS------
-          editproduct(item)
-          {
-            $.ajax({
-              method: 'POST',
-              url: '../public/api/editproduct.php',
-              data:
-              {
-                //SKU + user together identify item:
-                item_sku: item.sku,
-                item_user: item.user,
-                //The new product name
-                edit_product: this.product
-              }
-            }).done(function(data)
-            {
-              console.log('edited product')
-              this.getAllItems()
-            }.bind(this))
-          },
-          editdescription(item)
-          {
-            $.ajax({
-              method: 'POST',
-              url: '../public/api/editdescription.php',
-              data:
-              {
-                //SKU + user together identify item:
-                item_sku: item.sku,
-                item_user: item.user,
-                //The new product name
-                edit_product: this.description
-              }
-            }).done(function(data)
-            {
-              console.log('edited product')
-              this.getAllItems()
-            }.bind(this))
-          },
-          editimage(item)
-          {
-            $.ajax({
-              method: 'POST',
-              url: '../public/api/editimage.php',//TODO js
-              data:
-              {
-                //SKU + user together identify item:
-                item_sku: item.sku,
-                item_user: item.user,
-                //The new product name
-                edit_image: this.image //TODO image format?
-              }
-            }).done(function(data)
-            {
-              console.log('edited image')
-              this.getAllItems()
-            }.bind(this))
-          },
-          editquantity(item)
-          {
-            $.ajax({
-              method: 'POST',
-              url: '../public/api/editquantity.php', //TODO js
-              data:
-              {
-                //SKU + user together identify item:
-                item_sku: item.sku,
-                item_user: item.user,
-                //The new product name
-                edit_product: this.quantity
-              }
-            }).done(function(data)
-            {
-              console.log('edited quantity')
-              this.getAllItems()
-            }.bind(this))
-          },
           mounted()
           {
             this.getAllItems()
