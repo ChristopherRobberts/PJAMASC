@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: pjamasc
+-- Host: localhost    Database: cantaloupe
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
@@ -97,7 +97,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,12 +106,12 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (5,'JYSK','jysk@jysk.com','123456','/local'),(6,'Webhallen','contact@webhallen.com','6789','/local2'),(7,'Elgiganten','contact@elgiganten.se','12345','/local3/image2.jpeg');
+INSERT INTO `user` VALUES (5,'JYSK','jysk@jysk.com','123456','/local'),(6,'Webhallen','contact@webhallen.com','6789','/local2'),(7,'Elgiganten','contact@elgiganten.se','12345','/local3/image2.jpeg'),(8,'SUBWAY','contact@subway.com','subway','filepath');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'pjamasc'
+-- Dumping routines for database 'cantaloupe'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `addItem` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -126,12 +126,32 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addItem`(IN sku VARCHAR(50), IN product VARCHAR(255), IN owner INT(11), IN description VARCHAR(255), IN image VARCHAR(255), IN amount INT)
 BEGIN
 	DECLARE product_id INT(11);
-    DECLARE timestamp INT;
-    SET timestamp = CURRENT_TIMESTAMP();
+    DECLARE utimestamp TIMESTAMP;
+    SET utimestamp = CURRENT_TIMESTAMP();
     INSERT IGNORE INTO `product`(name) VALUES(product);
     SET product_id = (SELECT `id` FROM `product` WHERE `name` = product);
     INSERT INTO `product_list`(sku, product, owner, description, image, quantity, created, last_modified)
-    VALUES(sku, product_id, owner, description, image, quantity, timestamp, timestamp);
+    VALUES(sku, product_id, owner, description, image, quantity, utimestamp, utimestamp);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `addUser` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser`(IN uName VARCHAR(255), IN uEmail VARCHAR(255), IN pwd VARCHAR(255), IN avatar VARCHAR(255))
+BEGIN
+	INSERT IGNORE INTO user(name, email, password, avatar)
+    VALUES(uName, uEmail, pwd, avatar);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -171,9 +191,35 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getItems`(IN owner INT(11))
 BEGIN
-	SELECT * 
-    FROM `product_list` AS `pl`
-    WHERE pl.owner = owner;
+	SELECT pl.sku, p.name, pl.description, pl.image, pl.quantity, pl.created, pl.last_modified
+    FROM `product` AS `p`,`product_list` AS `pl`
+    WHERE pl.owner = owner 
+    AND pl.product = p.id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getUserInfo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserInfo`(
+	IN username VARCHAR(255), 
+    IN userpwd VARCHAR(255))
+BEGIN
+    SELECT id, user.name, user.avatar
+	FROM user 
+	WHERE (user.name = username 
+    OR user.email = username)
+	AND user.password = userpwd;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -220,10 +266,9 @@ BEGIN
 
 	SET pl.quantity = pl.quantity + amount,
 		pl.last_modified = CURRENT_TIMESTAMP()
-
 	WHERE pl.sku = sku
     AND pl.owner = owner;
-
+	SELECT quantity FROM product_list AS pl WHERE pl.sku=sku AND pl.owner = owner;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -240,4 +285,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-25 21:02:49
+-- Dump completed on 2018-09-28 11:58:49

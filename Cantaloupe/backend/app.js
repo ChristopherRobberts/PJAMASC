@@ -3,10 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-let dataBaseConnection = require('./Integration/DatabaseConnection.js');
+let dataBaseConnection = require('./integration/DataBaseConnection.js');
+let Controller = require('./Controller/Controller.js');
+const util = require('util');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -52,4 +53,48 @@ app.use(function(err, req, res, next) {
 
 dataBaseConnection.connection;
 
+/*
+* Tests for the database calls.
+* */
+
+//WORKS(soon)
+/*
+Controller.addItem("AB0000024", "tv3000", 7, "best tv eu", "abc", 50, function(status) {
+    console.log(status);
+});*/
+
+//FUNKAR
+
+Controller.getUserInfo("JYSK", "123456", function(status) {
+    console.log(status);
+});
+
+
+//FUNKAR
+/*
+Controller.deleteItems("AB0000024", 7, function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.getItems(7, function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.updateItemDescription("AB000001", 5, "bajskorv", function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.updateItemQuantity("AB000001", 5, 10, 1, function(status) {
+   console.log(status);
+});
+*/
 module.exports = app;
