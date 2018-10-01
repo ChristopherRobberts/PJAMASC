@@ -1,5 +1,7 @@
 let DataBaseConnection = require('../Integration/DataBaseConnection.js');
 
+
+
 module.exports = {
 
     updateItemQuantity: function (SKU, owner, amount, sign, fn) {
@@ -14,8 +16,14 @@ module.exports = {
         }
     },
 
-    getItems: function (userID, fn) {
-        DataBaseConnection.getItems(userID, function (itemInformation) {
+    addUser: function (name, email, password, avatar, fn) {
+        DataBaseConnection.addUser(name, email, password, avatar, function(status) {
+            fn(status);
+        })
+    },
+
+    getItems: function (owner, fn) {
+        DataBaseConnection.getItems(owner, function (itemInformation) {
             fn(itemInformation);
         })
     },
@@ -26,21 +34,25 @@ module.exports = {
         });
     },
 
-    addItem: function (sku, owner, quantity, image, description, name, fn) {
-        DataBaseConnection.addItem(sku, name, description, image, quantity, owner, function (status) {
+    addItem: function (sku, name, owner, description, image, quantity, fn) {
+        DataBaseConnection.addItem(sku, name, owner, description, image, quantity, function (status) {
             fn(status);
         })
     },
 
-    updateItemDescription: function (sku, owner, quantity, fn) {
-        DataBaseConnection.updateItemQuantity(sku, owner, quantity, function (updateStatus) {
+    updateItemDescription: function (sku, owner, description, fn) {
+        DataBaseConnection.updateItemDescription(sku, owner, description, function (updateStatus) {
             fn(updateStatus);
         })
     },
 
-    getUserInfo: function (userID, name, password, avatar, fn) {
-        DataBaseConnection.getUserInfo(userID, name, password, avatar, function (returnedInformation) {
+    getUserInfo: function (name, password, fn) {
+        DataBaseConnection.getUserInfo(name, password, function (returnedInformation) {
             fn(returnedInformation);
         })
-    }
+    },
+    //login: function (user, password) {
+    //
+    //    return DataBaseConnection.login(user, password);
+    //}
 };

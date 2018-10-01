@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let dataBaseConnection = require('./integration/DataBaseConnection.js');
 let Controller = require('./Controller/Controller.js');
+const util = require('util');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -42,17 +43,48 @@ app.use(function(err, req, res, next) {
 
 dataBaseConnection.connection;
 
-Controller.getItems(5, (itemInformation) => {
+/*
+* Tests for the database calls.
+* */
 
-});
+//WORKS(soon)
+/*
+Controller.addItem("AB0000024", "tv3000", 7, "best tv eu", "abc", 50, function(status) {
+    console.log(status);
+});*/
 
-Controller.updateItemQuantity('AB00004', 5, 10, 1, (result) => {
-    console.log("new quantity is: " + JSON.stringify(result[0]));
-});
+//FUNKAR
 
-dataBaseConnection.getPassword("JYSK");
-Controller.deleteItems("SKU", 1, function(status) {
+Controller.getUserInfo("JYSK", "123456", function(status) {
     console.log(status);
 });
 
+
+//FUNKAR
+/*
+Controller.deleteItems("AB0000024", 7, function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.getItems(7, function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.updateItemDescription("AB000001", 5, "bajskorv", function(status) {
+    console.log(status);
+});
+*/
+
+//FUNKAR
+/*
+Controller.updateItemQuantity("AB000001", 5, 10, 1, function(status) {
+   console.log(status);
+});
+*/
 module.exports = app;
