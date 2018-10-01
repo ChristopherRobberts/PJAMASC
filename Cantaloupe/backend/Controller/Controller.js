@@ -1,7 +1,5 @@
 let DataBaseConnection = require('../Integration/DataBaseConnection.js');
 
-
-
 module.exports = {
 
     updateItemQuantity: function (SKU, owner, amount, sign, fn) {
@@ -28,7 +26,7 @@ module.exports = {
         })
     },
 
-    deleteItems: function (sku, owner, fn) {
+    deleteItem: function (sku, owner, fn) {
         DataBaseConnection.deleteItem(sku, owner, function (deleteStatus) {
             fn(deleteStatus);
         });

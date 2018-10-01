@@ -5,6 +5,14 @@ let connection = require('mysql');
 * validatePassword, getHash
 * */
 
+let con = connection.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "root",
+        database: "cantaloupe",
+    }
+);
+
 let encrypter = require('../encryption/encryption');
 
 function validatePassword(hash, pass) {
@@ -18,14 +26,6 @@ function validatePassword(hash, pass) {
 function getHash(pass) {
     return pass;
 }
-
-let con = connection.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "cantaloupe",
-    }
-);
 
 module.exports = {
     connection: con.connect(function (err) {
@@ -142,7 +142,6 @@ module.exports = {
                     fn(result);
                 }
             }
-
         })
     }
 };
