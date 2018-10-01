@@ -129,19 +129,27 @@ module.exports = {
     },
 
 
-    getUserInfo: function (name, password, fn) {
-        let hash = encrypter.getHash(password);
+    getUserInfo: function (username, password, fn) {
+        let query = `CALL getUserInfo('${username}')`;
 
-        let query = `CALL getUserInfo('${name}', '${hash}')`;
-
+        /* For testing
+        console.log(hash);
+        let query = `CALL getUserInfo('JYSK', '123456')`;
+        if(encrypter.validatePass('123456', '$2a$09$1AuBpVfh9S9iOIMdOsd5UehdU0YN2W8zczYX2zsU/vsOu/1CAvGlm')){
+            console.log('Hashed and regular are equal');
+        } else {
+            console.log('Not equal');
+        }
+        */
         con.query(query, function (err, result) {
             if(err) console.log(err);
             else {
-                //arguments: stored hash value of password, inputted password
-                if (encrypter.validatePass(result[0].password, password)){
+                //arguments: plaintext password, hashed and salted password from database
+                if (encrypter.validatePass(password, result[0][0].password)){
                     fn(result);
                 }
             }
         })
+
     }
 };

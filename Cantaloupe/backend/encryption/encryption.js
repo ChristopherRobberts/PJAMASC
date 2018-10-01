@@ -32,7 +32,7 @@ getHash: function generateHash(password){
 
 },
 
-validatePass: function validatePassword(hash, password){
+validatePass: function validatePassword(password, hash){
 
     //asks dataHandler to provide the password of the user.
     //let storedPassword = dataHandler.getPassword(user);
