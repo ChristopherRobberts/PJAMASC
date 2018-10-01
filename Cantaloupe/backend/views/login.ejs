@@ -1,0 +1,47 @@
+
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link href="/stylesheets/reset.css" rel="stylesheet">
+        <link href="/stylesheets/general.css" rel="stylesheet">
+        <link href="/stylesheets/specific.css" rel="stylesheet">
+
+        <title>Cantaloupe</title>
+
+    </head>
+
+    <body>
+
+      <div class="wrapper">
+
+        <!-- Include subview loginbar -->
+        <!--php include 'subviews/loginbar.html';-->
+      <ul>
+          <form name="loginForm" action = "dashboard" onsubmit="return validateForm()" method="post">
+              <li><a><input type="submit" id="loginbtn" value="Log in"></a></li>
+              <li><b>Password <input type="password" name="pword"></b></li>
+              <li><b>Username <input type="text" name="uname"></b></li>
+          </form>
+      </ul>
+
+        <div id=maincol>
+
+          <img id="portrait" src = "/images/me.png" alt="img src error" height="300">
+
+          <H1 class="front-text title">
+            Cantaloupe Inventory System
+          </H1>
+          <span class="front-text">
+            Vad du vill för att- .. oh shit
+          </span>
+
+        </div>
+
+      </div>
+
+    </body>
+
+</html>

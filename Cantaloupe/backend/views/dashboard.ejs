@@ -1,0 +1,211 @@
+
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link href="/stylesheets/reset.css" rel="stylesheet">
+        <link href="/stylesheets/general.css" rel="stylesheet">
+        <link href="/stylesheets/specific.css" rel="stylesheet">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue"></script>
+
+        <title>Cantaloupe</title>
+        <script>
+            function validateForm() {
+                var uname = document.forms["loginForm"]["uname"].value;
+                var pword = document.forms["loginForm"]["pword"].value;
+                if (uname == "") {
+                    alert("Username must be filled out");
+                    return false;
+                }
+                if (pword == "") {
+                    alert("Username must be filled out");
+                    return false;
+                }
+                if (uname == "incorrect") {
+                    alert("Login failed - incorrect username or password");
+                    return false;
+                }
+                if (pword == "incorrect") {
+                    alert("Login failed - incorrect username or password");
+                    return false;
+                }
+
+            }
+      </script>
+
+    </head>
+
+    <body>
+
+      <div class="wrapper">
+        <div id=row1>
+          <H1 id ="dash">Dashboard</H1>
+
+          <img id=loginpic src = "/images/me.png" alt="img src error" height="50">
+          <div id="username"><%= (username) ? username : '-' %></div>
+
+        </div>
+        <div id=maincol>
+
+          <div id=list>
+          <div id = "items">
+
+            <table class="item-list">
+
+              <tr>
+
+                <th class="item-attribute left">
+                  product
+                </th>
+                <th class="item-attribute">
+                  owner
+                </th>
+                <th class="item-attribute">
+                  description
+                </th>
+                <th class="item-attribute">
+                  image
+                </th>
+                <th class="item-attribute right">
+                  quantity
+                </th>
+
+              </tr>
+
+              <tr v-for="item in items" class="item-container">
+
+                <th class="item-cell product"> {{ item.username }} </th>
+                <th class="item-cell owner"> {{ item.comment }} </th>
+                <th class="item-cell description" onclick="javascript:showDiv('description');"> description </th>
+                <th class="item-cell image"> image.png </th>
+                <th class="item-cell quantity"> quantity </th>
+                <th class="item-cell button">
+                  <button v-if="item.deletable" @click="deleteitem(item.item_id)">Delete</button>
+                  <button class="list-button" @click="deleteitem(item.item_id)">Delete</button>
+                </th>
+
+              </tr>
+              <tr>
+
+                <th class="item-cell input">
+                  <input class="in" type="text" name="product" maxlength="200" v-model="product" required>
+                </th>
+                <th class="item-cell input">
+                  <input class="in" type="text" name="owner" maxlength="200" v-model="owner" required></input>
+                </th>
+                <th class="item-cell input">
+                  <input class="in" type="text" name="item" maxlength="200" v-model="itemText" required>
+                </th>
+                <th class="item-cell input">
+                  image.png
+                </th>
+                <th class="item-cell input">
+                  <input class="in" type="text" name="item" maxlength="200" v-model="itemText" required>
+                </th>
+                <th class="item-cell input">
+                  <button class="" @click="submititem">Submit</button>
+                </th>
+
+              </tr>
+
+            </table>
+              <p>
+                <%= (username) ? username : '' %>
+                <%= (password) ? password : '' %>
+              </p>
+          </div>
+        </div>
+          <div id="expand">
+            <h2>Display info</h2>
+            <br>
+            <span>
+              data
+            </span>
+          </div>
+        </div>
+      </div>
+      <script>
+        function showDiv(data)
+        {
+          div = document.getElementById('expand');
+          div.style.display = "block";
+          div.innerHTML = data;
+        }
+      </script>
+
+      <script>
+      var app = new Vue({
+          el: '#items',
+          data:
+          {
+            items: [],
+            itemText: '',
+          },
+          methods:
+          {
+            //--------METHODS-------
+            getAllitems()
+            {
+              $.ajax({
+                url: '../resources/api/getitems.php',
+                data: {type_id: 2}
+              }).done(function(data)
+              {
+
+                this.items = JSON.parse(data);
+              }.bind(this))
+            },
+            postitem()
+            {
+              $.ajax({
+                method: 'POST',
+                url: '../resources/api/postitem.php',
+                data:
+                {
+                  type: "pancakes",
+                  itemText: this.itemText
+                }
+              }).done(function(data)
+              {
+                console.log(this)
+                console.log('posted item:' + this.itemText)
+                this.itemText="";
+                this.getAllitems()
+              }.bind(this))
+            },
+
+
+            //----------EVENTS-----------
+            submititem(event)
+            {
+              this.postitem()
+            },
+            deleteitem(itemId)
+            {
+              $.ajax({
+                method: 'POST',
+                url: '../resources/api/deleteitem.php',
+                data:
+                {
+                  item_id: itemId
+                }
+              }).done(function(data)
+              {
+                console.log("deleted item with id " + itemId)
+                this.getAllitems()
+              }.bind(this))
+            },
+
+          },
+          mounted()
+          {
+            this.getAllitems()
+          }
+        })
+        </script>
+    </body>
+
+</html>
