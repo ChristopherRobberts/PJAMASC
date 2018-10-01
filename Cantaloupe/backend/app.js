@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-let dataBaseConnection = require('./integration/DataBaseConnection.js');
+let dataBaseConnection = require('./Integration/DatabaseConnection.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
