@@ -1,9 +1,5 @@
 let connection = require('mysql');
-
-/*
-* test functions for password validation
-* validatePassword, getHash
-* */
+let encrypter = require('../encryption/encryption');
 
 let con = connection.createConnection({
         host: "localhost",
@@ -13,8 +9,10 @@ let con = connection.createConnection({
     }
 );
 
-let encrypter = require('../encryption/encryption');
-
+/*
+* test functions for password validation
+* validatePassword, getHash
+* */
 function validatePassword(hash, pass) {
     console.log("validating");
     console.log(hash);
