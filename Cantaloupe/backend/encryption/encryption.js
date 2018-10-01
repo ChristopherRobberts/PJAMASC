@@ -15,34 +15,28 @@ let dataHandler = require('../integration/DataBaseConnection');
 //getHash(password)
 //validatePass(user, password)
 module.exports = {
-getHash: function generateHash(password){
-    let hash;
-    try {
-        //generates hash of password using bcrypt library
-        hash = bcrypt.hashSync(password, bcrypt.genSaltSync(9));
+    getHash: function generateHash(password){
+        let hash;
+        try {
+            //generates hash of password using bcrypt library
+            hash = bcrypt.hashSync(password, bcrypt.genSaltSync(9));
+        } catch (ex) {
+            console.log("password couldn't be encrypted");
+            return null;
+        }
+        return hash;
+    },
 
-    } catch (ex) {
+    validatePass: function validatePassword(password, hash){
 
-        console.log("password couldn't be encrypted");
-        return null;
-    }
-
-    return hash;
-
-
-},
-
-validatePass: function validatePassword(password, hash){
-
-    //asks dataHandler to provide the password of the user.
-    //let storedPassword = dataHandler.getPassword(user);
-    //if(storedPassword == null){
-    //    console.log('password not found');
-    //    return false;
-    //}
+        //asks dataHandler to provide the password of the user.
+        //let storedPassword = dataHandler.getPassword(user);
+        //if(storedPassword == null){
+        //    console.log('password not found');
+        //    return false;
+        //}
         //validates the password: true/false and returns.
         return bcrypt.compareSync(password, hash)
 
-}
-
+    }
 };

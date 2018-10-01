@@ -4,11 +4,11 @@ let router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('login');
+    res.render('login');
 });
 
 router.get('/dashboard', function(req, res, next) {
-  res.render('dashboard');
+    res.render('dashboard');
 });
 
 router.post('/dashboard', function(req, res) {

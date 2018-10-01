@@ -47,40 +47,40 @@ module.exports = {
             (err) ? fn(err) : fn(result);
         });
     },
-/*
-    getPassword: function (user) {
-        let query = `SELECT password FROM user WHERE name = '${user}'`;
-        //let query = `SELECT password * FROM user`;
-        con.query(query, function (err, result) {
-            console.log(result);
-            return result[0].password;
-            //console.log(result);
-        })
-    },
+    /*
+        getPassword: function (user) {
+            let query = `SELECT password FROM user WHERE name = '${user}'`;
+            //let query = `SELECT password * FROM user`;
+            con.query(query, function (err, result) {
+                console.log(result);
+                return result[0].password;
+                //console.log(result);
+            })
+        },
 
-    login: function (user, password) {
-        let query = `SELECT password FROM user WHERE name = '${user}'`;
-        con.query(query, function (err, result) {
-            console.log("jag är här");
-            //console.log(result);
-            console.log(result[0].password);
-            return result[0].password;
-            //console.log("password");
-            //console.log(result);
+        login: function (user, password) {
+            let query = `SELECT password FROM user WHERE name = '${user}'`;
+            con.query(query, function (err, result) {
+                console.log("jag är här");
+                //console.log(result);
+                console.log(result[0].password);
+                return result[0].password;
+                //console.log("password");
+                //console.log(result);
 
-            //if(result == null){
-            //    console.log('password not found');
-            //    return false;
-            //}
-            //asks encrypter to validate that the encrypted password is compatible with the plaintext password
-            //return validatePassword(result[0].password, password);
+                //if(result == null){
+                //    console.log('password not found');
+                //    return false;
+                //}
+                //asks encrypter to validate that the encrypted password is compatible with the plaintext password
+                //return validatePassword(result[0].password, password);
 
-        });
-        //console.log(encryptedPassword);
+            });
+            //console.log(encryptedPassword);
 
 
-    },
-*/
+        },
+    */
     deleteItem: function (sku, owner, fn) {
         let query = `CALL deleteItem('${sku}', ${owner})`;
         con.query(query, function (err, result) {
@@ -150,6 +150,5 @@ module.exports = {
                 }
             }
         })
-
     }
 };
