@@ -7,6 +7,7 @@ let dataBaseConnection = require('./integration/DataBaseConnection.js');
 let Controller = require('./Controller/Controller.js');
 const util = require('util');
 let encrypt = require('./encryption/encryption');
+var expressSession = require('express-session');
 
 var indexRouter = require('./routes/index');
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressSession({ secret: 'pjamasc', saveUninitialized: false, resave: false}));
 
 // Form validation and sanitization
 /*

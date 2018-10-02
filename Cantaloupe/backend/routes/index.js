@@ -4,17 +4,24 @@ let controller = require('../Controller/Controller.js');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('login');
+router.get('/', function(req, res) {
+    if(req.session.username){
+        res.redirect('/dashboard');
+    } else {
+        res.render('login');
+    }
 });
 
-router.get('/dashboard', function(req, res, next) {
+router.get('/dashboard', function(req, res) {
     res.render('dashboard');
 });
 
-router.post('/dashboard', function(req, res, next) {
+router.post('/dashboard', function(req, res) {
     let username = req.body.uname;
     let password = req.body.pword;
+    req.session.username = username;
+    req.session.password = password;
+
     controller.login(username, password, function(loginSuccess){
         if(loginSuccess){
             console.log('going to dashboard');
