@@ -12,7 +12,7 @@
         <script src="https://unpkg.com/vue"></script>
 
         <title>Cantaloupe</title>
-        <script>
+        <!--<script>
             function validateForm() {
                 var uname = document.forms["loginForm"]["uname"].value;
                 var pword = document.forms["loginForm"]["pword"].value;
@@ -34,7 +34,7 @@
                 }
 
             }
-      </script>
+      </script>-->
 
     </head>
 
@@ -45,7 +45,6 @@
           <H1 id ="dash">Dashboard</H1>
 
           <img id=loginpic src = "/images/me.png" alt="img src error" height="50">
-          <div id="username"><%= (username) ? username : '-' %></div>
 
         </div>
         <div id=maincol>
@@ -112,10 +111,6 @@
               </tr>
 
             </table>
-              <p>
-                <%= (username) ? username : '' %>
-                <%= (password) ? password : '' %>
-              </p>
           </div>
         </div>
           <div id="expand">
@@ -150,7 +145,7 @@
             getAllitems()
             {
               $.ajax({
-                url: './api/getItems',
+                url: './item/getAllItems',
                 data: {type_id: 2}
               }).done(function(data)
               {

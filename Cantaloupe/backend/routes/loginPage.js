@@ -9,11 +9,9 @@ router.post('/login', function(req, res) {
         if (result.loginSuccess) {
             req.session.userName = userName;
             req.session.ID = result.userID;
-            res.status(200);
-            res.json(result.userID);
+            res.redirect('/dashboard');
         } else {
-            res.status(400);
-            res.json("bad password");
+            res.redirect('/');
         }
     });
 });
