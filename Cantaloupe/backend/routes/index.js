@@ -13,9 +13,9 @@ router.post('/dashboard', function(req, res) {
     let username = req.body.uname;
     let password = req.body.pword;
 
-    controller.login(username, password, function(loginSuccess){
-        if(loginSuccess){
-            req.session.username = username;
+    controller.login(username, password, function(result){
+        if(result.loginSuccess){
+            req.session.username = result.username;
             req.session.password = password;
             console.log('going to dashboard');
             res.render('dashboard', { 'username': req.session.username, 'password': req.session.password});
