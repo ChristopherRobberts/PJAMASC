@@ -17,4 +17,15 @@ router.get('/dashboard', function (req, res) {
         res.render('dashboard');
     }
 });
+
+router.post('/logout', function(req, res){
+    req.session.username = null;
+    req.session.password = null;
+    res.render('login');
+});
+
+router.get('/logout', function(req, res){
+    res.render('login');
+});
+
 module.exports = router;

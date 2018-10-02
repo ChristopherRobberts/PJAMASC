@@ -42,9 +42,15 @@
 
       <div class="wrapper">
         <div id=row1>
-          <H1 id ="dash">Dashboard</H1>
+          <h1 id ="dash">Dashboard</h1>
 
           <img id=loginpic src = "/images/me.png" alt="img src error" height="50">
+
+          <div id="username"><%= (username) ? username : '-' %></div>
+          <form name="logoutForm" action="logout" method="post">
+            <input type="submit" id="logoutbtn" value="Log out">
+          </form>
+
 
         </div>
         <div id=maincol>
