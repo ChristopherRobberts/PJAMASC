@@ -3,12 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-let dataBaseConnection = require('./integration/DataBaseConnection.js');
+let dataBaseConnection = require('./Integration/DatabaseConnection.js');
 let Controller = require('./Controller/Controller.js');
 const util = require('util');
 let encrypt = require('./encryption/encryption');
 
 var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
 */
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

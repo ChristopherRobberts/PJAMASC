@@ -1,4 +1,4 @@
-let DataBaseConnection = require('../Integration/DataBaseConnection.js');
+let DataBaseConnection = require('../Integration/DatabaseConnection.js');
 
 module.exports = {
 

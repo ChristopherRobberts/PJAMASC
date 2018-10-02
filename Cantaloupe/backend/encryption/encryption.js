@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-let dataHandler = require('../integration/DataBaseConnection');
+let dataHandler = require('../Integration/DatabaseConnection');
 
 //for storing passwords:
 //call getHash(password)

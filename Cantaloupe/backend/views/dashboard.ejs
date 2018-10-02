@@ -150,7 +150,7 @@
             getAllitems()
             {
               $.ajax({
-                url: '../resources/api/getitems.php',
+                url: './api/getItems',
                 data: {type_id: 2}
               }).done(function(data)
               {
@@ -162,7 +162,7 @@
             {
               $.ajax({
                 method: 'POST',
-                url: '../resources/api/postitem.php',
+                url: '/api/addItem',
                 data:
                 {
                   type: "pancakes",
