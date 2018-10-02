@@ -4,26 +4,34 @@ let controller = require('../Controller/Controller.js');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('login');
+router.get('/', function(req, res) {
+    if(req.session.username){
+        res.redirect('/dashboard');
+    } else {
+        res.render('login');
+    }
 });
 
-router.get('/dashboard', function(req, res, next) {
+router.get('/dashboard', function(req, res) {
     res.render('dashboard');
 });
 
 router.post('/dashboard', function(req, res) {
     let username = req.body.uname;
     let password = req.body.pword;
-    if(controller.login(username, password, function(result){
-        console.log(result);
-    })){
-        res.render('dashboard', { 'username': username, 'password': password});
-        console.log('advance to dashboard');
-    } else {
-        res.render('login');
-        console.log('advance to login');
-    };
+    req.session.username = username;
+    req.session.password = password;
+
+    controller.login(username, password, function(loginSuccess){
+        if(loginSuccess){
+            console.log('going to dashboard');
+            res.render('dashboard', { 'username': username, 'password': password});
+        } else {
+            console.log('going to login');
+            res.render('login');
+        };
+
+    });
     /* Validate login form input
     req.checkBody('username', 'Username is required').notEmpty();
     req.checkBody('password', 'Password is required').notEmpty();

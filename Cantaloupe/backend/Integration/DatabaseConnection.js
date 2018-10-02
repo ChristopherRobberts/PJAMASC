@@ -142,9 +142,13 @@ module.exports = {
         con.query(query, function (err, result) {
             if(err) console.log(err);
             else {
-                //arguments: plaintext password, hashed and salted password from database
-                if (encrypter.validatePass(password, result[0][0].password)){
-                    fn(result);
+                //let hashedPassword = result[0][0].password;
+                if(result[0][0]){
+                    //arguments: plaintext password, hashed and salted password from database
+                    let passValidated = encrypter.validatePass(password, result[0][0].password);
+                    fn(passValidated);
+                } else {
+                    fn(false);
                 }
             }
         })
