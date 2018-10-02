@@ -20,14 +20,10 @@
   <div id=row1>
     <h1 id ="dash">Dashboard</h1>
     <img id=loginpic src = "/images/me.png" alt="img src error" height="50">
-    <div id="username"><%= (username) ? username : '-' %></div>
+    <div id="username"></div>
   </div>
 
   <div id=maincol>
-    <p>
-      <%= (username) ? username : '' %>
-      <%= (password) ? password : '' %>
-    </p>
     <div id=list>
       <div id = "items">
         <table class="item-list">
@@ -41,23 +37,23 @@
 
           <tr v-for="item in items" class="item-container">
 
-            <th class="item-cell"> {{ item.username }} product
+            <th class="item-cell"> {{ item.name }}
               <button class="insertbtn" @click="editproduct(item)">insert</button>
             </th>
             <th class="item-cell hoverable" @click="showdiv(item.product, item.description);">
-              {{item.description}}description
+              {{item.description}}
               <button class="insertbtn" @click="editdescription('sku','user','desc')">insert</button>
             </th>
             <th class="item-cell hoverable" @click="showdiv(item.product, item.image);">
-              {{item.image}} image
+              {{item.image}}
               <button class="insertbtn" @click="editimage(item)">insert</button>
             </th>
             <th class="item-cell">
-              {{item.quantity}} 5
+              {{item.quantity}}
               <button class="insertbtn" @click="editquantity(item)">insert</button>
             </th>
             <th class="item-cell">
-              {{item.sku}} sku
+              {{item.sku}}
               <button class="insertbtn" @click="editsku(item)">insert</button>
             </th>
             <th class="item-cell">
@@ -98,7 +94,6 @@
     </div>
   </div>
 </div>
-<<<<<<< HEAD
       <script>
           var app = new Vue({
               el: '#items',
@@ -133,8 +128,8 @@
                                   }
                           }).done(function(data)
                           {
-                              console.log('edited product')
-                              this.getAllItems()
+                              console.log('edited product');
+                              this.getAllItems();
                           }.bind(this))
                       },
                       getAllItems()
@@ -143,7 +138,8 @@
                               url: './item/getAllItems'
                           }).done(function(data)
                           {
-                              this.items = JSON.parse(data);
+                              this.items = data;
+
                           }.bind(this))
                       },
                       postitem()
