@@ -6,18 +6,19 @@ const controller = require("../Controller/Controller");
 router.post('/login', function(req, res) {
     const userName = req.body.userName;
     const password = req.body.password;
-    const userID = checkLogin(userName, password);
-    if (userID) {
-        req.session.userName = userName;
-        req.session.ID = userID;
-        res.status(200);
-        res.redirect('/');
-    } else {
-        res.status(400);
-        res.json("bad password");
-    }
+    let accepted;
+    controller.login(userName, password, function(result) {
+        accepted = result;
+        if (accepted) {
+            req.session.userName = userName;
+            req.session.ID = userID;
+            res.status(200);
+            res.redirect('/');
+        } else {
+            res.status(400);
+            res.json("bad password");
+        }
+    });
 });
-
-const checkLogin = (userName, password) => 5;
 
 module.exports = router;
