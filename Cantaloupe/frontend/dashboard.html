@@ -70,9 +70,7 @@
               <input class="in" type="text" name="description" maxlength="200" v-model="description">
             </th>
             <th class="item-cell input">
-              <input type="file"
-                     id="imagein" v-on="image"
-                     accept="image/png, image/jpeg" />
+              <input type="file" id="imagein" v-on="image" accept="image/png, image/jpeg" />
             </th>
             <th class="item-cell input">
               <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
@@ -90,12 +88,9 @@
         <div id="expand">
           <h2 id="info" v-html="displayInfo">{{displayInfo}}</h2>
           <br>
-          <span id="items" v-html="displayData">
-                {{displayData}} data
-              </span>
+          <span v-html="displayData"> {{displayData}} data </span>
         </div>
       </div>
-
     </div>
 
 
@@ -303,6 +298,8 @@
             }
         })
     </script>
+  </div>
+</div>
 </body>
 
 </html>
