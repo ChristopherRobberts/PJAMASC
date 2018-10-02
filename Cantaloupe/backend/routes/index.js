@@ -12,18 +12,19 @@ router.get('/dashboard', function(req, res, next) {
     res.render('dashboard');
 });
 
-router.post('/dashboard', function(req, res) {
+router.post('/dashboard', function(req, res, next) {
     let username = req.body.uname;
     let password = req.body.pword;
-    if(controller.login(username, password, function(result){
-        console.log(result);
-    })){
-        res.render('dashboard', { 'username': username, 'password': password});
-        console.log('advance to dashboard');
-    } else {
-        res.render('login');
-        console.log('advance to login');
-    };
+    controller.login(username, password, function(loginSuccess){
+        if(loginSuccess){
+            console.log('going to dashboard');
+            res.render('dashboard', { 'username': username, 'password': password});
+        } else {
+            console.log('going to login');
+            res.render('login');
+        };
+
+    });
     /* Validate login form input
     req.checkBody('username', 'Username is required').notEmpty();
     req.checkBody('password', 'Password is required').notEmpty();
