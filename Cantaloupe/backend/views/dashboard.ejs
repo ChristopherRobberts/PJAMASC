@@ -46,7 +46,7 @@
 
           <img id=loginpic src = "/images/me.png" alt="img src error" height="50">
 
-          <div id="username"><%= (username) ? username : '-' %></div>
+          <div id="username"></div>
           <form name="logoutForm" action="logout" method="post">
             <input type="submit" id="logoutbtn" value="Log out">
           </form>
@@ -138,74 +138,206 @@
       </script>
 
       <script>
-      var app = new Vue({
-          el: '#items',
-          data:
-          {
-            items: [],
-            itemText: '',
-          },
-          methods:
-          {
-            //--------METHODS-------
-            getAllitems()
-            {
-              $.ajax({
-                url: './item/getAllItems',
-                data: {type_id: 2}
-              }).done(function(data)
+          var app = new Vue({
+              el: '#items',
+              data:
+                  {
+                      displayInfo:'',
+                      displayData:'',
+                      items: [],
+                      itemText: '',
+                      product: '',
+                      description: '',
+                      image:'',
+                      quantity: '',
+                      sku: '',
+                      showDiv:'',
+                  },
+              methods:
+                  {
+                      //--------METHODS-------
+                      editdescription(sku,user,desc)
+                      {
+                          $.ajax({
+                              method: 'POST',
+                              url: '../public/api/editdescription.php',
+                              data:
+                                  {
+                                      //SKU + user together identify item:
+                                      item_sku: sku,
+                                      item_user: user,
+                                      //The new product name
+                                      edit_product: desc
+                                  }
+                          }).done(function(data)
+                          {
+                              console.log('edited product')
+                              this.getAllItems()
+                          }.bind(this))
+                      },
+                      getAllItems()
+                      {
+                          $.ajax({
+                              url: './item/getAllItems'
+                          }).done(function(data)
+                          {
+                              this.items = JSON.parse(data);
+                          }.bind(this))
+                      },
+                      postitem()
+                      {
+                          $.ajax({
+                              method: 'POST',
+                              url: '../public/api/postitem.php',
+                              data:
+                                  {
+                                      product: this.product,
+                                      description: this.description,
+                                      quantity: this.quantity
+                                  }
+                          }).done(function(data)
+                          {
+                              console.log(this)
+                              console.log('posted item:' + this.itemText)
+                              this.itemText = "";
+                              this.product = "",
+                                  this.description = "",
+                                  this.quantity = "",
+                                  this.getAllItems()
+                          }.bind(this))
+                      },
+                      //----------EVENTS-----------
+                      editsku(item)
+                      {
+                          $.ajax({
+                              method: 'POST',
+                              url: '../public/api/editimage.php',//TODO js
+                              data:
+                                  {
+                                      //SKU + user together identify item:
+                                      item_sku: item.sku,
+                                      item_user: item.user,
+                                      //The new product name
+                                      edit_image: this.image //TODO image format?
+                                  }
+                          }).done(function(data)
+                          {
+                              console.log('edited image')
+                              this.getAllItems()
+                          }.bind(this))
+                      },
+                      editquantity(item)
+                      {
+                          $.ajax({
+                              method: 'POST',
+                              url: '../public/api/editquantity.php', //TODO js
+                              data:
+                                  {
+                                      //SKU + user together identify item:
+                                      item_sku: item.sku,
+                                      item_user: item.user,
+                                      //The new product name
+                                      edit_sku: this.sku
+                                  }
+                          }).done(function(data)
+                          {
+                              console.log('edited sku')
+                              this.getAllItems()
+                          }.bind(this))
+                      },
+                      editimage(item)
+                      {
+                          $.ajax({
+                              method: 'POST',
+                              url: '../public/api/editimage.php',//TODO js
+                              data:
+                                  {
+                                      //SKU + user together identify item:
+                                      item_sku: item.sku,
+                                      item_user: item.user,
+                                      //The new product name
+                                      edit_image: this.image //TODO image format?
+                                  }
+                          }).done(function(data)
+                          {
+                              console.log('edited image')
+                              this.getAllItems()
+                          }.bind(this))
+                      },
+                      editquantity(item)
+                      {
+                          $.ajax({
+                              method: 'POST',
+                              url: '../public/api/editquantity.php', //TODO js
+                              data:
+                                  {
+                                      //SKU + user together identify item:
+                                      item_sku: item.sku,
+                                      item_user: item.user,
+                                      //The new product name
+                                      edit_product: this.quantity
+                                  }
+                          }).done(function(data)
+                          {
+                              console.log('edited quantity')
+                              this.getAllItems()
+                          }.bind(this))
+                      },
+                      showdiv(product, data)
+                      {
+                          showDiv = document.getElementById('expand');
+                          showDiv.style.display = "block";
+                          this.displayInfo = product;
+                          this.displayData = data;
+                          console.log(this.displayInfo);
+                          //document.getElementById('info').innerHTML = product;
+                          //document.getElementById('data').innerHTML = data;
+                      },
+                      editproduct(item)
+                      {
+                          $.ajax({
+                              method: 'POST',
+                              url: '../public/api/editproduct.php',
+                              data:
+                                  {
+                                      //SKU + user together identify item:
+                                      item_sku: item.sku,
+                                      item_user: item.user,
+                                      //The new product name
+                                      edit_product: this.product
+                                  }
+                          }).done(function(data)
+                          {
+                              console.log('edited product')
+                              this.getAllItems()
+                          }.bind(this))
+                      },
+                      submititem(event)
+                      {
+                          this.postitem()
+                      },
+                      deleteitem(item)
+                      {
+                          $.ajax({
+                              method: 'POST',
+                              url: '../public/api/deleteitem.php',
+                              data:
+                                  {
+                                      item_sku: item.sku,
+                                      item_user: item.user
+                                  }
+                          }).done(function(data)
+                          {
+                              console.log("deleted item " + item.product)
+                              this.getAllItems()
+                          }.bind(this))
+                      },
+                  },
+              mounted()
               {
-
-                this.items = JSON.parse(data);
-              }.bind(this))
-            },
-            postitem()
-            {
-              $.ajax({
-                method: 'POST',
-                url: '/api/addItem',
-                data:
-                {
-                  type: "pancakes",
-                  itemText: this.itemText
-                }
-              }).done(function(data)
-              {
-                console.log(this)
-                console.log('posted item:' + this.itemText)
-                this.itemText="";
-                this.getAllitems()
-              }.bind(this))
-            },
-
-
-            //----------EVENTS-----------
-            submititem(event)
-            {
-              this.postitem()
-            },
-            deleteitem(itemId)
-            {
-              $.ajax({
-                method: 'POST',
-                url: '../resources/api/deleteitem.php',
-                data:
-                {
-                  item_id: itemId
-                }
-              }).done(function(data)
-              {
-                console.log("deleted item with id " + itemId)
-                this.getAllitems()
-              }.bind(this))
-            },
-
-          },
-          mounted()
-          {
-            this.getAllitems()
-          }
-        })
-        </script>
+                  this.getAllItems()
+              }
+          })
+      </script>
     </body>
 </html>
