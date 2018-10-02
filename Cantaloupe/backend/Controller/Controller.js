@@ -50,7 +50,7 @@ module.exports = {
         DataBaseConnection.getUserInfo(name, password, function (returnedInformation) {
             fn(returnedInformation);
         })
-    },
+    }
     //login: function (user, password) {
     //
     //    return DataBaseConnection.login(user, password);

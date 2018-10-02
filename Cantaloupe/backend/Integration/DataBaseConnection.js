@@ -37,7 +37,7 @@ module.exports = {
         let query = `CALL getItems(${owner})`;
         con.query(query, function (err, result) {
             (err) ? fn(err) : fn("success!");
-            fn(result[0]);
+            fn(result);
         });
     },
 
