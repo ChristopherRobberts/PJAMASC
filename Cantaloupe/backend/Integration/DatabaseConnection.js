@@ -146,9 +146,15 @@ module.exports = {
                 if(result[0][0]){
                     //arguments: plaintext password, hashed and salted password from database
                     let passValidated = encrypter.validatePass(password, result[0][0].password);
-                    fn(passValidated);
+                    fn({
+                        loginSuccess: passValidated,
+                        userID: result[0][0].id
+                    });
                 } else {
-                    fn(false);
+                    fn({
+                        loginSuccess: false,
+                        userID: null
+                    });
                 }
             }
         })
