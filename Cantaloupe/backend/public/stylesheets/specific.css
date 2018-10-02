@@ -34,6 +34,19 @@
   width: 100%;
   height: 100%;
 }
+
+#logoutbtn{
+    background-color: transparent;
+    border-color: transparent;
+    cursor: default;
+    font-size: 30px;
+    font-style: italic;
+    color: #ddd;
+    font-family: serif;
+    font: Georgia;
+    height: 100%;
+    float: right;
+}
 input{
   background-color: #bbb;
   color: #333;
@@ -133,7 +146,7 @@ th{
   font-style: normal;
 }
 
-H1{
+h1{
   padding-left: 30px;
   margin: 18px;
 }
