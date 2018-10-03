@@ -24,7 +24,7 @@ router.get('/getAllItems', function (req, res) {
     });
 });
 
-router.post('/addItem', function(req, res) {
+router.post('/addItem', function (req, res) {
     if (!req.session.ID) {
         res.json("not logged in");
         return;
@@ -39,6 +39,37 @@ router.post('/addItem', function(req, res) {
     controller.addItem(sku, name, req.session.ID, description, image, amount, function (result) {
         res.json(result);
     });
+});
+
+router.post('/editSKU', function (req, res) {
+    if (!req.session.ID) {
+        res.json("you must be logged in to edit.");
+        return;
+    }
+
+    const {
+        sku,
+        newSku
+    } = req.body;
+    console.log(sku, newSku);
+    controller.updateItemSKU(sku, req.session.ID, newSku, function (data) {
+        res.json(data);
+    })
+});
+
+router.post('/editQuantity', function (req, res) {
+    if (!req.session.ID) {
+        res.json("you must be logged in to edit");
+        return;
+    }
+
+    const {
+        sku,
+        amount
+    } = req.body;
+   controller.updateItemQuantity(sku, req.session.ID, amount, function(data) {
+       res.json(data);
+   })
 });
 
 module.exports = router;

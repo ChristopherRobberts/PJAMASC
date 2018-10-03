@@ -74,7 +74,7 @@
                             <input class="in" type="text" name="description" maxlength="200" v-model="description">
                         </th>
                         <th class="item-cell input">
-                            <input type="file" id="imagein" v-on="image" accept="image/png, image/jpeg"/>
+                            <input class="in" type="text" name="imagepath" maxlength="200" v-model="imagepath">
                         </th>
                         <th class="item-cell input">
                             <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
@@ -109,7 +109,7 @@
                 itemText: '',
                 product: '',
                 description: '',
-                image: '',
+                imagepath: '',
                 quantity: '',
                 sku: '',
                 showDiv: '',
@@ -152,12 +152,12 @@
                                 name: this.product,
                                 description: this.description,
                                 amount: this.quantity,
-                                image: this.image
+                                image: this.imagepath
                             }
                     }).done(function (data) {
                         console.log(this)
                         console.log('posted item:' + this.product)
-                        console.log('containing image:' + this.image)
+                        console.log('containing image:' + this.imagepath)
                         this.product = "";
                         this.description = "";
                         this.quantity = "";
@@ -169,34 +169,31 @@
                 editsku(item) {
                     $.ajax({
                         method: 'POST',
-                        url: '../public/api/editimage.php',//TODO js
+                        url: './item/editSKU',
                         data:
                             {
                                 //SKU + user together identify item:
-                                item_sku: item.sku,
-                                item_user: item.user,
-                                //The new product name
-                                edit_image: this.image //TODO image format?
+                                sku: item.sku,
+                                newSku: this.sku
                             }
                     }).done(function (data) {
-                        console.log('edited image')
+                        console.log(item.sku + " " + this.sku);
+                        console.log('edited SKU');
                         this.getAllItems()
                     }.bind(this))
                 },
                 editquantity(item) {
                     $.ajax({
                         method: 'POST',
-                        url: '../public/api/editquantity.php', //TODO js
+                        url: './item/editQuantity', //TODO js
                         data:
                             {
                                 //SKU + user together identify item:
-                                item_sku: item.sku,
-                                item_user: item.user,
-                                //The new product name
-                                edit_sku: this.sku
+                                sku: item.sku,
+                                amount: this.quantity
                             }
                     }).done(function (data) {
-                        console.log('edited sku')
+                        console.log('edited quantity')
                         this.getAllItems()
                     }.bind(this))
                 },
@@ -210,27 +207,10 @@
                                 item_sku: item.sku,
                                 item_user: item.user,
                                 //The new product name
-                                edit_image: this.image //TODO image format?
+                                edit_image: this.imagepath //TODO image format?
                             }
                     }).done(function (data) {
                         console.log('edited image')
-                        this.getAllItems()
-                    }.bind(this))
-                },
-                editquantity(item) {
-                    $.ajax({
-                        method: 'POST',
-                        url: '../public/api/editquantity.php', //TODO js
-                        data:
-                            {
-                                //SKU + user together identify item:
-                                item_sku: item.sku,
-                                item_user: item.user,
-                                //The new product name
-                                edit_product: this.quantity
-                            }
-                    }).done(function (data) {
-                        console.log('edited quantity')
                         this.getAllItems()
                     }.bind(this))
                 },

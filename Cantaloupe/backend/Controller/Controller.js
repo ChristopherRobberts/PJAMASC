@@ -2,20 +2,14 @@ let DataBaseConnection = require('../Integration/DatabaseConnection.js');
 
 module.exports = {
 
-    updateItemQuantity: function (SKU, owner, amount, sign, fn) {
-        if (sign < 0) {
-            DataBaseConnection.updateItemQuantity(SKU, owner, -1 * amount, function (newAmount) {
-                fn(newAmount);
-            })
-        } else {
-            DataBaseConnection.updateItemQuantity(SKU, owner, amount, function (newAmount) {
-                fn(newAmount);
-            });
-        }
+    updateItemQuantity: function (SKU, owner, amount, fn) {
+        DataBaseConnection.updateItemQuantity(SKU, owner, amount, function (newAmount) {
+            fn(newAmount);
+        })
     },
 
     addUser: function (name, email, password, avatar, fn) {
-        DataBaseConnection.addUser(name, email, password, avatar, function(status) {
+        DataBaseConnection.addUser(name, email, password, avatar, function (status) {
             fn(status);
         })
     },
@@ -43,19 +37,19 @@ module.exports = {
             fn(updateStatus);
         })
     },
-    
+
     updateItemName: function (sku, owner, newName, fn) {
-        DataBaseConnection.updateItemDescription(sku, owner, newName, function (updateStatus) {
+        DataBaseConnection.updateItemName(sku, owner, newName, function (updateStatus) {
             fn(updateStatus);
         })
     },
     updateItemImage: function (sku, owner, newImage, fn) {
-        DataBaseConnection.updateItemDescription(sku, owner, newImage, function (updateStatus) {
+        DataBaseConnection.updateItemImage(sku, owner, newImage, function (updateStatus) {
             fn(updateStatus);
         })
     },
     updateItemSKU: function (sku, owner, newSKU, fn) {
-        DataBaseConnection.updateItemDescription(sku, owner, newSKU, function (updateStatus) {
+        DataBaseConnection.updateItemSKU(sku, owner, newSKU, function (updateStatus) {
             fn(updateStatus);
         })
     },
