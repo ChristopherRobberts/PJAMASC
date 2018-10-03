@@ -71,4 +71,20 @@ router.post('/edit-name', function(req, res) {
         res.json(result);
     })
 });
+
+router.post('/edit-image', function(req, res) {
+    if (!req.session.ID) {
+        res.json("not logged in");
+        return;
+    }
+
+    const {
+        sku,
+        path
+    } = req.body;
+    console.log(req.body);
+    controller.updateItemImage(sku, req.session.ID, path, function (result) {
+        res.json(result);
+    })
+});
 module.exports = router;

@@ -202,14 +202,13 @@
                 editimage(item) {
                     $.ajax({
                         method: 'POST',
-                        url: '../public/api/editimage.php',//TODO js
+                        url: '/item/edit-image',
                         data:
                             {
                                 //SKU + user together identify item:
-                                item_sku: item.sku,
-                                item_user: item.user,
+                                sku: item.sku,
                                 //The new product name
-                                edit_image: this.image //TODO image format?
+                                path: this.image
                             }
                     }).done(function (data) {
                         console.log('edited image')
