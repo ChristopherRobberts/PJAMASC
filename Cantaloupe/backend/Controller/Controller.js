@@ -45,17 +45,17 @@ module.exports = {
     },
     
     updateItemName: function (sku, owner, newName, fn) {
-        DataBaseConnection.updateItemDescription(sku, owner, newName, function (updateStatus) {
+        DataBaseConnection.updateItemName(sku, owner, newName, function (updateStatus) {
             fn(updateStatus);
         })
     },
     updateItemImage: function (sku, owner, newImage, fn) {
-        DataBaseConnection.updateItemDescription(sku, owner, newImage, function (updateStatus) {
+        DataBaseConnection.updateItemImage(sku, owner, newImage, function (updateStatus) {
             fn(updateStatus);
         })
     },
     updateItemSKU: function (sku, owner, newSKU, fn) {
-        DataBaseConnection.updateItemDescription(sku, owner, newSKU, function (updateStatus) {
+        DataBaseConnection.updateItemSKU(sku, owner, newSKU, function (updateStatus) {
             fn(updateStatus);
         })
     },

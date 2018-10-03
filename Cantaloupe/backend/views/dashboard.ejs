@@ -216,23 +216,6 @@
                         this.getAllItems()
                     }.bind(this))
                 },
-                editquantity(item) {
-                    $.ajax({
-                        method: 'POST',
-                        url: '../public/api/editquantity.php', //TODO js
-                        data:
-                            {
-                                //SKU + user together identify item:
-                                item_sku: item.sku,
-                                item_user: item.user,
-                                //The new product name
-                                edit_product: this.quantity
-                            }
-                    }).done(function (data) {
-                        console.log('edited quantity')
-                        this.getAllItems()
-                    }.bind(this))
-                },
                 showdiv(product, data) {
                     showDiv = document.getElementById('expand');
                     showDiv.style.display = "block";
@@ -245,14 +228,13 @@
                 editproduct(item) {
                     $.ajax({
                         method: 'POST',
-                        url: '../public/api/editproduct.php',
+                        url: '/item/edit-name',
                         data:
                             {
                                 //SKU + user together identify item:
-                                item_sku: item.sku,
-                                item_user: item.user,
+                                sku: item.sku,
                                 //The new product name
-                                edit_product: this.product
+                                product: this.product
                             }
                     }).done(function (data) {
                         console.log('edited product')

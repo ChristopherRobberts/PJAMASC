@@ -106,7 +106,7 @@ module.exports = {
         })
     },
     updateItemSKU: function (sku, owner, newSKU, fn) {
-        let query = `CALL updateItemImage('${sku}', ${owner}, '${newSKU}')`;
+        let query = `CALL updateItemSKU('${sku}', ${owner}, '${newSKU}')`;
         con.query(query, (err, result) => {
             (err) ? fn(err) : fn(result);
         })

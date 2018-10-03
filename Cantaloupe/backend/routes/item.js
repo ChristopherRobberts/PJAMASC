@@ -56,4 +56,19 @@ router.post('/edit-description', function(req, res) {
     })
 });
 
+router.post('/edit-name', function(req, res) {
+    if (!req.session.ID) {
+        res.json("not logged in");
+        return;
+    }
+
+    const {
+        sku,
+        product
+    } = req.body;
+    console.log(req.body);
+    controller.updateItemName(sku, req.session.ID, product, function (result) {
+        res.json(result);
+    })
+});
 module.exports = router;
