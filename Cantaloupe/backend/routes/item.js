@@ -46,7 +46,7 @@ router.post('/edit-description', function(req, res) {
         res.json("not logged in");
         return;
     }
-    console.log(req.body);
+
     const {
         sku,
         description
@@ -66,7 +66,7 @@ router.post('/edit-name', function(req, res) {
         sku,
         product
     } = req.body;
-    console.log(req.body);
+
     controller.updateItemName(sku, req.session.ID, product, function (result) {
         res.json(result);
     })
@@ -82,7 +82,7 @@ router.post('/edit-image', function(req, res) {
         sku,
         path
     } = req.body;
-    console.log(req.body);
+
     controller.updateItemImage(sku, req.session.ID, path, function (result) {
         res.json(result);
     })
