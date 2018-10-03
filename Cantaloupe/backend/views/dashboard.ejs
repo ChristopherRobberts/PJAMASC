@@ -44,11 +44,11 @@
                         <th class="item-cell"> {{ item.name }}
                             <button class="insertbtn" @click="editproduct(item)">insert</button>
                         </th>
-                        <th class="item-cell hoverable" @click="showdiv(item.product, item.description);">
+                        <th class="item-cell hoverable" @click="showdiv(item.name, item.description);">
                             {{item.description}}
                             <button class="insertbtn" @click="editdescription('sku','user','desc')">insert</button>
                         </th>
-                        <th class="item-cell hoverable" @click="showdiv(item.product, item.image);">
+                        <th class="item-cell hoverable" @click="showdiv(item.name, item.image);">
                             {{item.image}}
                             <button class="insertbtn" @click="editimage(item)">insert</button>
                         </th>
@@ -157,6 +157,7 @@
                     }).done(function (data) {
                         console.log(this)
                         console.log('posted item:' + this.product)
+                        console.log('containing image:' + this.image)
                         this.product = "";
                         this.description = "";
                         this.quantity = "";
@@ -238,7 +239,7 @@
                     showDiv.style.display = "block";
                     this.displayInfo = product;
                     this.displayData = data;
-                    console.log(this.displayInfo);
+                    console.log("Displayinfo: " + this.displayInfo);
                     //document.getElementById('info').innerHTML = product;
                     //document.getElementById('data').innerHTML = data;
                 },
