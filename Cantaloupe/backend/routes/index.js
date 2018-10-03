@@ -15,17 +15,15 @@ router.get('/', function (req, res) {
 router.get('/dashboard', function (req, res) {
     if (req.session.ID) {
         res.render('dashboard');
+    } else {
+        res.redirect('/');
     }
 });
 
 router.post('/logout', function(req, res){
-    req.session.username = null;
-    req.session.password = null;
-    res.render('login');
-});
-
-router.get('/logout', function(req, res){
-    res.render('login');
+    req.session.userName = null;
+    req.session.ID = null;
+    res.redirect('/');
 });
 
 module.exports = router;

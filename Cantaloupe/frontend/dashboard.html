@@ -142,7 +142,7 @@
                             this.items = JSON.parse(data);
                         }.bind(this))
                     },
-                    postitem()
+                    addItem()
                     {
                         $.ajax({
                             method: 'POST',
@@ -273,7 +273,7 @@
                     },
                     submititem(event)
                     {
-                        this.postitem()
+                        this.addItem()
                     },
                     deleteitem(item)
                     {

@@ -2,23 +2,6 @@ const express = require('express');
 const router = express.Router();
 const controller = require("../Controller/Controller");
 
-router.post('/addItem', function (req, res) {
-    if (!req.session.userName) {
-        res.status(401);
-        return;
-    }
-    const {
-        sku,
-        name,
-        description,
-        image,
-        quantity
-    } = req.body;
-    controller.addItem(sku, name, req.session.ID, description, image, quantity, (result) => {
-        res.json(result);
-    })
-});
-
 router.post('/deleteItem', function (req, res) {
     if (!req.session.userName) {
         res.status(401);
@@ -38,6 +21,23 @@ router.get('/getAllItems', function (req, res) {
     }
     controller.getItems(req.session.ID, function (data) {
         res.json(data[0]);
+    });
+});
+
+router.post('/addItem', function(req, res) {
+    if (!req.session.ID) {
+        res.json("not logged in");
+        return;
+    }
+    const {
+        sku,
+        name,
+        description,
+        image,
+        amount
+    } = req.body;
+    controller.addItem(sku, name, req.session.ID, description, image, amount, function (result) {
+        res.json(result);
     });
 });
 
