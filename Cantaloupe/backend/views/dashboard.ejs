@@ -278,15 +278,15 @@
                       {
                           $.ajax({
                               method: 'POST',
-                              url: '../public/api/deleteitem.php',
+                              url: './item/deleteItem',
                               data:
                                   {
-                                      item_sku: item.sku,
-                                      item_user: item.user
+                                      sku: item.sku
                                   }
                           }).done(function(data)
                           {
-                              console.log("deleted item " + item.product)
+                              console.log(data.sku);
+                              console.log("deleted item " + item.name)
                               this.getAllItems()
                           }.bind(this))
                       },
