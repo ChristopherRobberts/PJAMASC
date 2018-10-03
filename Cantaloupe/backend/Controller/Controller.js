@@ -44,6 +44,22 @@ module.exports = {
         })
     },
 
+    updateItemName: function (sku, owner, newName, fn) {
+        DataBaseConnection.updateItemDescription(sku, owner, newName, function (updateStatus) {
+            fn(updateStatus);
+        })
+    },
+    updateItemImage: function (sku, owner, newImage, fn) {
+        DataBaseConnection.updateItemDescription(sku, owner, newImage, function (updateStatus) {
+            fn(updateStatus);
+        })
+    },
+    updateItemSKU: function (sku, owner, newSku, fn) {
+        DataBaseConnection.updateItemDescription(sku, owner, newSku, function (updateStatus) {
+            fn(updateStatus);
+        })
+    },
+
     login: function (name, password, fn) {
         DataBaseConnection.getUserInfo(name, password, function (returnedInformation) {
             fn(returnedInformation);

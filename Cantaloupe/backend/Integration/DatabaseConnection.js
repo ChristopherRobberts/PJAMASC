@@ -92,6 +92,26 @@ module.exports = {
         })
     },
 
+
+    updateItemName: function (sku, owner, newName, fn) {
+        let query = `CALL updateItemName('${sku}', ${owner}, '${newName}')`;
+        con.query(query, (err, result) => {
+            (err) ? fn(err) : fn(result);
+        })
+    },
+    updateItemImage: function (sku, owner, newImage, fn) {
+        let query = `CALL updateItemImage('${sku}', ${owner}, '${newImage}')`;
+        con.query(query, (err, result) => {
+            (err) ? fn(err) : fn(result);
+        })
+    },
+    updateItemSKU: function (sku, owner, newSku, fn) {
+        let query = `CALL updateItemImage('${sku}', ${owner}, '${newSku}')`;
+        con.query(query, (err, result) => {
+            (err) ? fn(err) : fn(result);
+        })
+    },
+
     addItem: function (sku, name, owner, description, image, quantity, fn) {
         let query = `CALL addItem('${sku}', '${name}', ${owner}, '${description}', '${image}', ${quantity})`;
         con.query(query, (err, result) => {
@@ -124,7 +144,6 @@ module.exports = {
             }
         })
     },
-
 
     getUserInfo: function (username, password, fn) {
         let query = `CALL getUserInfo('${username}')`;
