@@ -46,7 +46,7 @@
                         </th>
                         <th class="item-cell hoverable" @click="showdiv(item.name, item.description);">
                             {{item.description}}
-                            <button class="insertbtn" @click="editdescription('sku','user','desc')">insert</button>
+                            <button class="insertbtn" @click="editdescription(item)">insert</button>
                         </th>
                         <th class="item-cell hoverable" @click="showdiv(item.name, item.image);">
                             {{item.image}}
@@ -117,17 +117,16 @@
         methods:
             {
                 //--------METHODS-------
-                editdescription(sku, user, desc) {
+                editdescription(item) {
                     $.ajax({
                         method: 'POST',
-                        url: '../public/api/editdescription.php',
+                        url: '/item/edit-description',
                         data:
                             {
                                 //SKU + user together identify item:
-                                item_sku: sku,
-                                item_user: user,
+                                sku: item.sku,
                                 //The new product name
-                                edit_product: desc
+                                description: this.description
                             }
                     }).done(function (data) {
                         console.log('edited product');

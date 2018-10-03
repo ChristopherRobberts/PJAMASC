@@ -41,4 +41,19 @@ router.post('/addItem', function(req, res) {
     });
 });
 
+router.post('/edit-description', function(req, res) {
+    if (!req.session.ID) {
+        res.json("not logged in");
+        return;
+    }
+    console.log(req.body);
+    const {
+        sku,
+        description
+    } = req.body;
+    controller.updateItemDescription(sku, req.session.ID, description, function (result) {
+        res.json(result);
+    })
+});
+
 module.exports = router;
