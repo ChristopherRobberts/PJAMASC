@@ -54,8 +54,8 @@ module.exports = {
             fn(updateStatus);
         })
     },
-    updateItemSKU: function (sku, owner, newSku, fn) {
-        DataBaseConnection.updateItemDescription(sku, owner, newSku, function (updateStatus) {
+    updateItemSKU: function (sku, owner, newSKU, fn) {
+        DataBaseConnection.updateItemDescription(sku, owner, newSKU, function (updateStatus) {
             fn(updateStatus);
         })
     },
