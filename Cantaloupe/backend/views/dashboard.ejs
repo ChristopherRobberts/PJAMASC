@@ -46,7 +46,7 @@
                         </th>
                         <th class="item-cell hoverable" @click="showdiv(item.name, item.description);">
                             {{item.description}}
-                            <button class="insertbtn" @click="editdescription('sku','user','desc')">insert</button>
+                            <button class="insertbtn" @click="editdescription(item)">insert</button>
                         </th>
                         <th class="item-cell hoverable" @click="showdiv(item.name, item.image);">
                             {{item.image}}
@@ -117,20 +117,18 @@
         methods:
             {
                 //--------METHODS-------
-                editdescription(sku, user, desc) {
+                editdescription(item) {
                     $.ajax({
                         method: 'POST',
-                        url: '../public/api/editdescription.php',
+                        url: '/item/edit-description',
                         data:
                             {
                                 //SKU + user together identify item:
-                                item_sku: sku,
-                                item_user: user,
+                                sku: item.sku,
                                 //The new product name
-                                edit_product: desc
+                                description: this.description
                             }
                     }).done(function (data) {
-                        console.log('edited product');
                         this.getAllItems();
                     }.bind(this))
                 },
@@ -177,8 +175,6 @@
                                 newSku: this.sku
                             }
                     }).done(function (data) {
-                        console.log(item.sku + " " + this.sku);
-                        console.log('edited SKU');
                         this.getAllItems()
                     }.bind(this))
                 },
@@ -188,7 +184,6 @@
                         url: './item/editQuantity', //TODO js
                         data:
                             {
-                                //SKU + user together identify item:
                                 sku: item.sku,
                                 amount: this.quantity
                             }
@@ -200,14 +195,13 @@
                 editimage(item) {
                     $.ajax({
                         method: 'POST',
-                        url: '../public/api/editimage.php',//TODO js
+                        url: '/item/edit-image',
                         data:
                             {
                                 //SKU + user together identify item:
-                                item_sku: item.sku,
-                                item_user: item.user,
+                                sku: item.sku,
                                 //The new product name
-                                edit_image: this.imagepath //TODO image format?
+                                path: this.image
                             }
                     }).done(function (data) {
                         console.log('edited image')
@@ -226,17 +220,15 @@
                 editproduct(item) {
                     $.ajax({
                         method: 'POST',
-                        url: '../public/api/editproduct.php',
+                        url: '/item/edit-name',
                         data:
                             {
                                 //SKU + user together identify item:
-                                item_sku: item.sku,
-                                item_user: item.user,
+                                sku: item.sku,
                                 //The new product name
-                                edit_product: this.product
+                                product: this.product
                             }
                     }).done(function (data) {
-                        console.log('edited product')
                         this.getAllItems()
                     }.bind(this))
                 },
@@ -252,8 +244,6 @@
                                 sku: item.sku
                             }
                     }).done(function (data) {
-                        console.log(data.sku);
-                        console.log("deleted item " + item.name)
                         this.getAllItems()
                     }.bind(this))
                 },
