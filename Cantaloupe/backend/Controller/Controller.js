@@ -43,7 +43,7 @@ module.exports = {
             fn(updateStatus);
         })
     },
-
+    
     updateItemName: function (sku, owner, newName, fn) {
         DataBaseConnection.updateItemDescription(sku, owner, newName, function (updateStatus) {
             fn(updateStatus);
