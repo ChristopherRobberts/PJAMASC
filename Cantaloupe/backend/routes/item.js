@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const controller = require("../Controller/Controller");
+const formidable = require('formidable');
+const multer = require('multer');
 
 router.post('/deleteItem', function (req, res) {
     if (!req.session.userName) {
@@ -123,6 +125,30 @@ router.post('/edit-image', function (req, res) {
     controller.updateItemImage(sku, req.session.ID, path, function (result) {
         res.json(result);
     })
+});
+
+var Storage = multer.diskStorage({
+    destination: "/images",
+    filename: function(req, file, callback) {
+        callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    }
+});
+
+var upload = multer({
+    storage: Storage
+}).single("profileImage"); //Field name and max count
+
+router.post('/fileUpload', function (req, res){
+    console.log(req.body);
+    upload(req, res, function(err) {
+        if (err) {
+            return res.end("Something went wrong!");
+        }
+        res.json({
+            success: true,
+            message: "image uploaded"
+        });
+    });
 });
 
 module.exports = router;

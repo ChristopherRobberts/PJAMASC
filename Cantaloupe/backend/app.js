@@ -3,16 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-let dataBaseConnection = require('./Integration/DatabaseConnection.js');
-let Controller = require('./Controller/Controller.js');
-const util = require('util');
-let encrypt = require('./encryption/encryption');
-var expressSession = require('express-session');
 
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
-var loginRouter = require('./routes/loginPage');
-var itemRouter = require('./routes/item');
+const dataBaseConnection = require('./Integration/DatabaseConnection.js');
+const controller = require('./Controller/Controller.js');
+const util = require('util');
+const encrypt = require('./encryption/encryption');
+const expressSession = require('express-session');
+
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
+const loginRouter = require('./routes/loginPage');
+const itemRouter = require('./routes/item');
 
 var app = express();
 

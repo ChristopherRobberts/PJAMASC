@@ -41,7 +41,8 @@
 
                     <tr v-for="item in items" class="item-container">
 
-                        <th class="item-cell"> {{ item.name }}
+                        <th class="item-cell">
+                            {{ item.name }}
                             <button class="insertbtn" @click="editproduct(item)">insert</button>
                         </th>
                         <th class="item-cell hoverable" @click="showdiv(item.name, item.description);">
@@ -49,8 +50,8 @@
                             <button class="insertbtn" @click="editdescription(item)">insert</button>
                         </th>
                         <th class="item-cell hoverable" @click="showdiv(item.name, item.image);">
-                            {{item.image}}
-                            <button class="insertbtn" @click="editimage(item)">insert</button>
+                            {{item.file}}
+                            <button class="insertbtn" @click="editimage(item)">upload</button>
                         </th>
                         <th class="item-cell">
                             {{item.quantity}}
@@ -74,7 +75,7 @@
                             <input class="in" type="text" name="description" maxlength="200" v-model="description">
                         </th>
                         <th class="item-cell input">
-                            <input class="in" type="text" name="imagepath" maxlength="200" v-model="imagepath">
+                            <input type="file" name="upload" multiple @change="onFileChanged">
                         </th>
                         <th class="item-cell input">
                             <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
@@ -113,6 +114,7 @@
                 quantity: '',
                 sku: '',
                 showDiv: '',
+                file: null
             },
         methods:
             {
@@ -181,7 +183,7 @@
                 editquantity(item) {
                     $.ajax({
                         method: 'POST',
-                        url: './item/editQuantity', //TODO js
+                        url: './item/editQuantity',
                         data:
                             {
                                 sku: item.sku,
@@ -192,17 +194,21 @@
                         this.getAllItems()
                     }.bind(this))
                 },
+                onFileChanged (event) {
+                    console.log("hello?");
+                    this.file = event.target.files[0];
+                    console.log(this.file);
+                    console.log(this.file.value);
+                },
                 editimage(item) {
+                    var fd = new FormData();
+                    fd.append('file', this.file);
                     $.ajax({
+                        processData: false,
                         method: 'POST',
-                        url: '/item/edit-image',
-                        data:
-                            {
-                                //SKU + user together identify item:
-                                sku: item.sku,
-                                //The new product name
-                                path: this.image
-                            }
+                        url: './item/fileUpload',
+                        data: fd,
+                        contentType: false,
                     }).done(function (data) {
                         console.log('edited image')
                         this.getAllItems()

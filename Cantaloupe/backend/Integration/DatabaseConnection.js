@@ -85,7 +85,7 @@ module.exports = {
             (err) ? fn(err) : fn(result);
         })
     },
-    
+
     addUser: function (name, email, password, avatar, fn) {
         let hash = getHash(password);
         if (hash == null) {
