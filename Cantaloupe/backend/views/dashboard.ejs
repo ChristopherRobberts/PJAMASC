@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="/stylesheets/reset.css" rel="stylesheet">
+    <link href="/stylesheets/general.css" rel="stylesheet">
+    <link href="/stylesheets/specific.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+
+    <title>Cantaloupe</title>
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div id=row1>
+        <h1 id="dash">Dashboard</h1>
+        <img id=loginpic src="/images/me.png" alt="img src error" height="50">
+        <div id="username"></div>
+
+        <form name="logoutform" action="logout" method="post">
+            <input type="submit" id="logoutbtn" value="Log out"/>
+        </form>
+    </div>
+
+    <div id=maincol>
+        <div id=list>
+            <div id="items">
+                <table class="item-list">
+                    <tr>
+                        <th class="item-attribute left"> product</th>
+                        <th class="item-attribute"> description</th>
+                        <th class="item-attribute"> image</th>
+                        <th class="item-attribute"> quantity</th>
+                        <th class="item-attribute right"> sku</th>
+                    </tr>
+
+                    <tr v-for="item in items" class="item-container">
+
+                        <th class="item-cell">
+                            {{ item.name }}
+                            <button class="insertbtn" @click="editproduct(item)">insert</button>
+                        </th>
+                        <th class="item-cell hoverable" @click="showdiv(item.name, item.description);">
+                            {{ item.description }}
+                            <button class="insertbtn" @click="editdescription(item)">insert</button>
+                        </th>
+                        <th class="item-cell hoverable" @click="showdiv(item.name, item.image);">
+                            <img :src="item.image" class="responsive-img"/>
+                            <input type="submit" class="insertbtn" name="submitForm" value="edit" @click="editimage(item)" form="uploadImage"/>
+                        </th>
+                        <th class="item-cell">
+                            {{ item.quantity }}
+                            <button class="insertbtn" @click="editquantity(item)">insert</button>
+                        </th>
+                        <th class="item-cell">
+                            {{ item.sku }}
+                            <button class="insertbtn" @click="editsku(item)">insert</button>
+                        </th>
+                        <th class="item-cell">
+                            <button class="list-button" @click="deleteitem(item)">Delete</button>
+                        </th>
+
+                    </tr>
+                    <tr>
+
+                        <th class="item-cell input">
+                            <input class="in" type="text" name="product" maxlength="200" v-model="product">
+                        </th>
+                        <th class="item-cell input">
+                            <input class="in" type="text" name="description" maxlength="200" v-model="description">
+                        </th>
+                        <th class="item-cell input">
+                            <form id="uploadImage" enctype="multipart/form-data" method="POST">
+                                <input id="myFile" name="profileImage" type="file"/>
+                            </form>
+                        </th>
+                        <th class="item-cell input">
+                            <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
+                        </th>
+                        <th class="item-cell input">
+                            <input class="in" type="text" name="sku" maxlength="200" v-model="sku">
+                        </th>
+                        <th class="item-cell input">
+                            <button class="" @click="submititem">Submit</button>
+                        </th>
+
+                    </tr>
+
+                </table>
+                <div id="expand">
+                    <h2 id="info" v-html="displayInfo">{{displayInfo}}</h2>
+                    <br>
+                    <span v-html="displayData"> {{displayData}} data </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#items',
+        data:
+            {
+                displayInfo: '',
+                displayData: '',
+                items: [],
+                itemText: '',
+                product: '',
+                description: '',
+                imagepath: '',
+                quantity: '',
+                sku: '',
+                showDiv: '',
+                image: ''
+            },
+        methods:
+            {
+                //--------METHODS-------
+                editdescription(item) {
+                    $.ajax({
+                        method: 'POST',
+                        url: '/item/edit-description',
+                        data:
+                            {
+                                //SKU + user together identify item:
+                                sku: item.sku,
+                                //The new product name
+                                description: this.description
+                            }
+                    }).done(function (data) {
+                        this.getAllItems();
+                    }.bind(this))
+                },
+                getAllItems() {
+                    $.ajax({
+                        url: './item/getAllItems'
+                    }).done(function (data) {
+                        this.items = data;
+                        console.log(data);
+                    }.bind(this))
+                },
+                addItem() {
+                    $.ajax({
+                        method: 'POST',
+                        url: './item/addItem',
+                        data:
+                            {
+                                sku: this.sku,
+                                name: this.product,
+                                description: this.description,
+                                amount: this.quantity,
+                                image: this.imagepath
+                            }
+                    }).done(function (data) {
+                        console.log(this)
+                        console.log('posted item:' + this.product)
+                        console.log('containing image:' + this.imagepath)
+                        this.product = "";
+                        this.description = "";
+                        this.quantity = "";
+                        this.sku = "";
+                        this.getAllItems()
+                    }.bind(this))
+                },
+                //----------EVENTS-----------
+                editsku(item) {
+                    $.ajax({
+                        method: 'POST',
+                        url: './item/editSKU',
+                        data:
+                            {
+                                //SKU + user together identify item:
+                                sku: item.sku,
+                                newSku: this.sku
+                            }
+                    }).done(function (data) {
+                        this.getAllItems()
+                    }.bind(this))
+                },
+                editquantity(item) {
+                    $.ajax({
+                        method: 'POST',
+                        url: './item/editQuantity',
+                        data:
+                            {
+                                sku: item.sku,
+                                amount: this.quantity
+                            }
+                    }).done(function (data) {
+                        console.log('edited quantity')
+                        this.getAllItems()
+                    }.bind(this))
+                },
+                editimage(item) {
+                    $("#uploadImage").off().submit(function (evt) {
+                        evt.preventDefault();
+                        let formData = new FormData($(this)[0]);
+                        formData.append("sku", item.sku);
+
+                        $.ajax({
+                            processData: false,
+                            method: 'POST',
+                            url: './item/fileUpload',
+                            data: formData,
+                            contentType: false,
+                        }).done(function (data) {
+                            app.getAllItems();
+                        }.bind(this))
+                    })
+                },
+                showdiv(product, data) {
+                    showDiv = document.getElementById('expand');
+                    showDiv.style.display = "block";
+                    this.displayInfo = product;
+                    this.displayData = data;
+                    console.log("Displayinfo: " + this.displayInfo);
+                    //document.getElementById('info').innerHTML = product;
+                    //document.getElementById('data').innerHTML = data;
+                },
+                editproduct(item) {
+                    $.ajax({
+                        method: 'POST',
+                        url: '/item/edit-name',
+                        data:
+                            {
+                                //SKU + user together identify item:
+                                sku: item.sku,
+                                //The new product name
+                                product: this.product
+                            }
+                    }).done(function (data) {
+                        this.getAllItems()
+                    }.bind(this))
+                },
+                submititem(event) {
+                    this.addItem()
+                },
+                deleteitem(item) {
+                    $.ajax({
+                        method: 'POST',
+                        url: './item/deleteItem',
+                        data:
+                            {
+                                sku: item.sku
+                            }
+                    }).done(function (data) {
+                        this.getAllItems()
+                    }.bind(this))
+                },
+            },
+        mounted() {
+            this.getAllItems()
+        }
+    })
+</script>
+</body>
+</html>
