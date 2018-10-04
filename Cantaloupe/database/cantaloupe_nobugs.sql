@@ -34,7 +34,7 @@ CREATE TABLE `product` (
   `name` varchar(244) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (2,'Dator'),(4,'Die Hard'),(5,'Die Hard 2'),(8,'Die Hard 3'),(6,'Frozen'),(7,'Frozen 2'),(3,'Hammock'),(9,'Hårtork'),(10,'Laptop'),(11,'Potato peeler'),(1,'TV');
+INSERT INTO `product` VALUES (13,'Computer science tutorial'),(2,'Dator'),(4,'Die Hard'),(5,'Die Hard 2'),(8,'Die Hard 3'),(6,'Frozen'),(7,'Frozen 2'),(3,'Hammock'),(9,'Hårtork'),(10,'Laptop'),(11,'Potato peeler'),(14,'Swordfish'),(1,'TV');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +62,7 @@ CREATE TABLE `product_list` (
   `image` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_modified` timestamp NOT NULL,
+  `last_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`sku`,`owner`),
   KEY `FK_product_list_product` (`product`),
   KEY `FK_product_list_user` (`owner`),
@@ -77,7 +77,7 @@ CREATE TABLE `product_list` (
 
 LOCK TABLES `product_list` WRITE;
 /*!40000 ALTER TABLE `product_list` DISABLE KEYS */;
-INSERT INTO `product_list` VALUES ('AB000001',2,5,'Same product, different owner, updates time 3','file_path',-987,'2018-09-25 18:51:50','2018-09-25 19:01:03'),('AB000001',2,7,'Super Mega co','/FILES',10,'2018-09-25 18:51:26','2018-09-25 18:53:59'),('AB000002',4,7,'AMAZING MOVIE','/files',5,'2018-09-24 13:15:03','2018-09-24 13:15:03'),('AB000003',5,7,'Sequel','/filespath',1,'2018-09-24 13:15:49','2018-09-24 13:15:50'),('AB00004',8,5,'Moviee','filepath',4,'2018-09-24 13:17:42','2018-09-24 13:17:42'),('AR123213',7,5,'Frozen 2 movie amazing sequel','filepath',19,'2018-09-24 13:19:34','2018-09-24 13:19:34'),('AT00001',6,5,'i forgot what this was','filepath',2,'2018-09-24 13:18:58','2018-09-24 13:18:58'),('BB000001',2,6,'Same product different sku','file_path',19,'2018-09-25 18:47:12','2018-09-25 18:47:12'),('GH123123',1,6,'SUPER AMOL LCD','filepath',32,'2018-09-24 13:23:26','2018-09-24 13:23:26'),('HJ123131',9,6,'oops','Filepath',12,'2018-09-24 13:25:08','2018-09-24 13:25:09'),('TY123455',3,6,'Hammock for relaxing','filepath',42,'2018-09-24 13:24:11','2018-09-24 13:24:11');
+INSERT INTO `product_list` VALUES ('AB000001',13,5,'Same product, different owner, updates time 3','new_filePath',-987,'2018-09-25 18:51:50','2018-10-02 11:09:47'),('AB000001',2,7,'Super Mega co','/FILES',10,'2018-09-25 18:51:26','2018-09-25 18:53:59'),('AB000002',4,7,'AMAZING MOVIE','/files',5,'2018-09-24 13:15:03','2018-09-24 13:15:03'),('AB000003',5,7,'Sequel','/filespath',1,'2018-09-24 13:15:49','2018-09-24 13:15:50'),('AB00004',8,5,'Moviee','filepath',4,'2018-09-24 13:17:42','2018-09-24 13:17:42'),('AR123213',7,5,'Frozen 2 movie amazing sequel','filepath',19,'2018-09-24 13:19:34','2018-09-24 13:19:34'),('AT00001',6,5,'i forgot what this was','filepath',2,'2018-09-24 13:18:58','2018-09-24 13:18:58'),('BB000001',2,6,'Same product different sku','file_path',19,'2018-09-25 18:47:12','2018-09-25 18:47:12'),('GH123123',1,6,'SUPER AMOL LCD','filepath',32,'2018-09-24 13:23:26','2018-09-24 13:23:26'),('HJ123131',9,6,'oops','Filepath',12,'2018-09-24 13:25:08','2018-09-24 13:25:09'),('TEST SKU',14,7,'Amazing fish tacos','swordfish path',42,'2018-10-02 11:13:57','2018-10-02 11:13:57'),('TY123455',3,6,'Hammock for relaxing','filepath',42,'2018-09-24 13:24:11','2018-09-24 13:24:11');
 /*!40000 ALTER TABLE `product_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +106,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (5,'JYSK','jysk@jysk.com','123456','/local'),(6,'Webhallen','contact@webhallen.com','6789','/local2'),(7,'Elgiganten','contact@elgiganten.se','12345','/local3/image2.jpeg'),(8,'SUBWAY','contact@subway.com','subway','filepath');
+INSERT INTO `user` VALUES (5,'JYSK','jysk@jysk.com','$2a$09$1AuBpVfh9S9iOIMdOsd5UehdU0YN2W8zczYX2zsU/vsOu/1CAvGlm','/local'),(6,'Webhallen','contact@webhallen.com','6789','/local2'),(7,'Elgiganten','contact@elgiganten.se','12345','/local3/image2.jpeg'),(8,'SUBWAY','contact@subway.com','subway','filepath');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +123,13 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addItem`(IN sku VARCHAR(50), IN product VARCHAR(255), IN owner INT(11), IN description VARCHAR(255), IN image VARCHAR(255), IN amount INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addItem`(
+	IN sku VARCHAR(50), 
+	IN product VARCHAR(255), 
+    IN owner INT(11), 
+    IN description VARCHAR(255), 
+    IN image VARCHAR(255), 
+    IN amount INT)
 BEGIN
 	DECLARE product_id INT(11);
     DECLARE utimestamp TIMESTAMP;
@@ -131,7 +137,7 @@ BEGIN
     INSERT IGNORE INTO `product`(name) VALUES(product);
     SET product_id = (SELECT `id` FROM `product` WHERE `name` = product);
     INSERT INTO `product_list`(sku, product, owner, description, image, quantity, created, last_modified)
-    VALUES(sku, product_id, owner, description, image, quantity, utimestamp, utimestamp);
+    VALUES(sku, product_id, owner, description, image, amount, utimestamp, utimestamp);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -212,14 +218,12 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserInfo`(
-	IN username VARCHAR(255), 
-    IN userpwd VARCHAR(255))
+	IN username VARCHAR(255))
 BEGIN
-    SELECT id, user.name, user.avatar
+    SELECT id, user.name, user.avatar, user.password
 	FROM user 
 	WHERE (user.name = username 
-    OR user.email = username)
-	AND user.password = userpwd;
+    OR user.email = username);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -243,6 +247,61 @@ BEGIN
 		pl.last_modified = CURRENT_TIMESTAMP()    
 	WHERE pl.sku = sku
     AND pl.owner = owner;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `updateItemImage` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateItemImage`(
+	IN sku VARCHAR(50), 
+	IN owner INT(11), 
+    IN newImage VARCHAR(255))
+BEGIN
+	UPDATE product_list AS pl
+	SET pl.image = newImage, 
+		pl.last_modified = CURRENT_TIMESTAMP()    
+	WHERE pl.sku = sku
+    AND pl.owner = owner;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `updateItemName` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateItemName`(
+	IN sku VARCHAR(50), 
+	IN owner INT(11), 
+    IN newName VARCHAR(255)
+)
+BEGIN
+	DECLARE product_id INT(11);
+    INSERT IGNORE INTO product(name) VALUES(newName);
+    SET product_id = (SELECT id FROM product WHERE name=newName);
+	UPDATE product_list AS pl
+    SET pl.product = product_id, 
+		pl.last_modified = CURRENT_TIMESTAMP() 
+	WHERE pl.sku = sku AND pl.owner = owner;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -275,6 +334,33 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `updateItemSKU` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateItemSKU`(
+	IN sku VARCHAR(50), 
+	IN owner INT(11), 
+    IN newSKU VARCHAR(255)
+)
+BEGIN
+	UPDATE product_list AS pl
+	SET pl.sku = newSKU, 
+		pl.last_modified = CURRENT_TIMESTAMP()    
+	WHERE pl.sku = sku
+    AND pl.owner = owner;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -285,4 +371,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-28 11:58:49
+-- Dump completed on 2018-10-03 10:51:35

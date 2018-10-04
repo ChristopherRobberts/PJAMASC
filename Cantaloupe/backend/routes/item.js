@@ -29,25 +29,6 @@ router.get('/getAllItems', function (req, res) {
     });
 });
 
-router.post('/addItem', function (req, res) {
-    if (!req.session.ID) {
-        res.json("not logged in");
-        return;
-    }
-
-    const {
-        sku,
-        name,
-        description,
-        image,
-        amount
-    } = req.body;
-
-    controller.addItem(sku, name, req.session.ID, description, image, amount, function (result) {
-        res.json(result);
-    });
-});
-
 router.post('/edit-description', function (req, res) {
     if (!req.session.ID) {
         res.json("not logged in");
@@ -166,6 +147,30 @@ router.post('/fileUpload', function (req, res) {
                 controller.updateItemImage(req.body.sku, req.session.ID, imageToDatabase, function (status) {
                     res.json(status);
                 })
+            }
+        }
+    });
+});
+
+router.post('/addItem', function (req, res) {
+    if (!req.session.ID) {
+        res.json("not logged in");
+        return;
+    }
+
+    upload(req, res, function (err) {
+        if (err) {
+            res.render('dashboard', {msg: err});
+        } else {
+            if (req.file === undefined) {
+                res.json("error")
+            } else {
+                const path = (req.file.destination + '/' + req.file.filename);
+                const imageToDatabase = path.substr(9, path.length);
+
+                controller.addItem(req.body.sku, req.body.name, req.session.ID, req.body.description, imageToDatabase, req.body.amount, function (result) {
+                    res.json(result);
+                });
             }
         }
     });
