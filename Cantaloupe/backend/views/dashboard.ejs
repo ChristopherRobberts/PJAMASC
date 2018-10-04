@@ -46,19 +46,19 @@
                             <button class="insertbtn" @click="editproduct(item)">insert</button>
                         </th>
                         <th class="item-cell hoverable" @click="showdiv(item.name, item.description);">
-                            {{item.description}}
+                            {{ item.description }}
                             <button class="insertbtn" @click="editdescription(item)">insert</button>
                         </th>
                         <th class="item-cell hoverable" @click="showdiv(item.name, item.image);">
-                            {{item.file}}
-                            <button class="insertbtn" @click="editimage(item)">upload</button>
+                            <img :src="item.image" class="responsive-img"/>
+                            <input type="submit" class="insertbtn" name="submitForm" value="edit" @click="editimage(item)" form="uploadImage"/>
                         </th>
                         <th class="item-cell">
-                            {{item.quantity}}
+                            {{ item.quantity }}
                             <button class="insertbtn" @click="editquantity(item)">insert</button>
                         </th>
                         <th class="item-cell">
-                            {{item.sku}}
+                            {{ item.sku }}
                             <button class="insertbtn" @click="editsku(item)">insert</button>
                         </th>
                         <th class="item-cell">
@@ -75,7 +75,9 @@
                             <input class="in" type="text" name="description" maxlength="200" v-model="description">
                         </th>
                         <th class="item-cell input">
-                            <input type="file" name="upload" multiple @change="onFileChanged">
+                            <form id="uploadImage" enctype="multipart/form-data" method="POST">
+                                <input id="myFile" name="profileImage" type="file"/>
+                            </form>
                         </th>
                         <th class="item-cell input">
                             <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
@@ -114,7 +116,7 @@
                 quantity: '',
                 sku: '',
                 showDiv: '',
-                file: null
+                image: ''
             },
         methods:
             {
@@ -139,7 +141,7 @@
                         url: './item/getAllItems'
                     }).done(function (data) {
                         this.items = data;
-
+                        console.log(data);
                     }.bind(this))
                 },
                 addItem() {
@@ -194,25 +196,22 @@
                         this.getAllItems()
                     }.bind(this))
                 },
-                onFileChanged (event) {
-                    console.log("hello?");
-                    this.file = event.target.files[0];
-                    console.log(this.file);
-                    console.log(this.file.value);
-                },
                 editimage(item) {
-                    var fd = new FormData();
-                    fd.append('file', this.file);
-                    $.ajax({
-                        processData: false,
-                        method: 'POST',
-                        url: './item/fileUpload',
-                        data: fd,
-                        contentType: false,
-                    }).done(function (data) {
-                        console.log('edited image')
-                        this.getAllItems()
-                    }.bind(this))
+                    $("#uploadImage").off().submit(function (evt) {
+                        evt.preventDefault();
+                        let formData = new FormData($(this)[0]);
+                        formData.append("sku", item.sku);
+
+                        $.ajax({
+                            processData: false,
+                            method: 'POST',
+                            url: './item/fileUpload',
+                            data: formData,
+                            contentType: false,
+                        }).done(function (data) {
+                            app.getAllItems();
+                        }.bind(this))
+                    })
                 },
                 showdiv(product, data) {
                     showDiv = document.getElementById('expand');

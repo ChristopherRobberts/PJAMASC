@@ -19,6 +19,10 @@
  float: left;
 }
 
+.responsive-img{
+    width:50%;
+    height: 20%;
+}
 
  /* Login bar */
 

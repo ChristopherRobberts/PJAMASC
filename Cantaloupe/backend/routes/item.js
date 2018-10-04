@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const controller = require("../Controller/Controller");
-const formidable = require('formidable');
 const multer = require('multer');
+const path = require('path');
+const util = require('util');
 
 router.post('/deleteItem', function (req, res) {
     if (!req.session.userName) {
@@ -127,27 +128,46 @@ router.post('/edit-image', function (req, res) {
     })
 });
 
-var Storage = multer.diskStorage({
-    destination: "/images",
-    filename: function(req, file, callback) {
-        callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+const storage = multer.diskStorage({
+    destination: "../public/images",
+    filename: function (req, file, callback) {
+        callback(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
     }
 });
 
-var upload = multer({
-    storage: Storage
+const upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, callback) {
+        checkFileType(file, callback);
+    }
 }).single("profileImage"); //Field name and max count
 
-router.post('/fileUpload', function (req, res){
-    console.log(req.body);
-    upload(req, res, function(err) {
+function checkFileType(file, callback) {
+    const fileTypes = /jpeg|jpg|png|gif/;
+    const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimeType = fileTypes.test(file.mimetype);
+    if (mimeType && extName) {
+        return callback(null, true)
+    } else {
+        callback('Error: Images only!');
+    }
+}
+
+router.post('/fileUpload', function (req, res) {
+    upload(req, res, function (err) {
         if (err) {
-            return res.end("Something went wrong!");
+            res.render('dashboard', {msg: err});
+        } else {
+            if (req.file === undefined) {
+                res.json("error")
+            } else {
+                const path = (req.file.destination + '/' + req.file.filename);
+                const imageToDatabase = path.substr(9, path.length);
+                controller.updateItemImage(req.body.sku, req.session.ID, imageToDatabase, function (status) {
+                    res.json(status);
+                })
+            }
         }
-        res.json({
-            success: true,
-            message: "image uploaded"
-        });
     });
 });
 
