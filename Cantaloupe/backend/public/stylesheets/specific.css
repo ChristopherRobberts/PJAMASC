@@ -50,6 +50,7 @@
     font: Georgia;
     height: 100%;
     float: right;
+    margin-top: 15px;
 }
 input{
   background-color: #bbb;
@@ -261,4 +262,12 @@ h1{
   min-height: 200px;
   margin-right: 10px;
   margin-top: 20px;
+}
+
+#expanddesc{
+    display:none;
+}
+
+#expandimg{
+    display:none;
 }

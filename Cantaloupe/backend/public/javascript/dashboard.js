@@ -3,6 +3,7 @@ var app = new Vue({
     data: {
         displayInfo: '',
         displayData: '',
+        displayImg: '',
         items: [],
         itemText: '',
         product: '',
@@ -132,12 +133,32 @@ var app = new Vue({
             }.bind(this))
         },
         //----------EVENTS-----------
-        showdiv(product, data) {
+        showdesc(item) {
             showDiv = document.getElementById('expand');
+            descDiv = document.getElementById('expandDesc');
+            imgDiv = document.getElementById('expandImg');
             showDiv.style.display = "block";
-            this.displayInfo = product;
-            this.displayData = data;
-            console.log("Displayinfo: " + this.displayInfo);
+            descDiv.style.display = "block";
+            imgDiv.style.display = "none";
+
+            this.displayInfo = item.name;
+            this.displayData = item.description;
+            console.log("displayInfo: " + this.displayData);
+            //document.getElementById('info').innerHTML = product;
+            //document.getElementById('data').innerHTML = data;
+        },
+        showimg(item) {
+            showDiv = document.getElementById('expand');
+            descDiv = document.getElementById('expandDesc');
+            imgDiv = document.getElementById('expandImg');
+            showDiv.style.display = "block";
+            descDiv.style.display = "none";
+            imgDiv.style.display = "block";
+
+
+            this.displayInfo = item.name;
+            this.displayImg = item.image;
+            console.log("DisplayImg: " + this.displayImg);
             //document.getElementById('info').innerHTML = product;
             //document.getElementById('data').innerHTML = data;
         },
