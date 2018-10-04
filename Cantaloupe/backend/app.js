@@ -11,7 +11,6 @@ const encrypt = require('./encryption/encryption');
 const expressSession = require('express-session');
 
 const indexRouter = require('./routes/index');
-const apiRouter = require('./routes/api');
 const loginRouter = require('./routes/loginPage');
 const itemRouter = require('./routes/item');
 
@@ -41,7 +40,6 @@ app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
 */
 
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
 app.use('/', loginRouter);
 app.use('/item', itemRouter);
 
