@@ -52,7 +52,6 @@ var app = new Vue({
                 url: './item/addItem',
                 data: formData,
             }).done(function (data) {
-                console.log(this)
                 this.product = "";
                 this.description = "";
                 this.quantity = "";
