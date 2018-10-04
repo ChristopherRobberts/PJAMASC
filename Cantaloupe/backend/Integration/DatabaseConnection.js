@@ -1,5 +1,5 @@
 let connection = require('mysql');
-let encrypter = require('../encryption/encryption');
+let encrypter = require('../util/encryption');
 
 let con = connection.createConnection({
         host: "localhost",

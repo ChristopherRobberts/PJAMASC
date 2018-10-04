@@ -7,7 +7,7 @@ var logger = require('morgan');
 const dataBaseConnection = require('./Integration/DatabaseConnection.js');
 const controller = require('./Controller/Controller.js');
 const util = require('util');
-const encrypt = require('./encryption/encryption');
+const encrypt = require('./util/encryption');
 const expressSession = require('express-session');
 
 const indexRouter = require('./routes/index');
