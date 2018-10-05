@@ -1,288 +1,304 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
+<head>
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="/pjamasc/public/stylesheets/reset.css" rel="stylesheet">
-        <link href="/pjamasc/public/stylesheets/general.css" rel="stylesheet">
-        <link href="/pjamasc/public/stylesheets/specific.css" rel="stylesheet">
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="https://unpkg.com/vue"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href="/pjamasc/public/stylesheets/reset.css" rel="stylesheet">
+  <link href="/pjamasc/public/stylesheets/general.css" rel="stylesheet">
+  <link href="/pjamasc/public/stylesheets/specific.css" rel="stylesheet">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
 
-        <title>Cantaloupe</title>
+  <title>Cantaloupe</title>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-      <div class="wrapper">
-        <div id=row1>
-          <H1 id ="dash">Dashboard</H1>
+<div class="wrapper">
+  <div id=row1>
+    <h1 id ="dash">Dashboard</h1>
+    <img id=loginpic src = "/pjamasc/public/images/me.png" alt="img src error" height="50">
+    <div id="username">username</div>
+  </div>
 
-          <img id=loginpic src = "/pjamasc/public/images/me.png" alt="img src error" height="50">
-          <div id="username">username</div>
+  <div id=maincol>
+    <div id=list>
+      <div id = "items">
+        <table class="item-list">
+          <tr>
+            <th class="item-attribute left"> product </th>
+            <th class="item-attribute"> description </th>
+            <th class="item-attribute"> image </th>
+            <th class="item-attribute"> quantity </th>
+            <th class="item-attribute right"> sku </th>
+          </tr>
 
+          <tr v-for="item in items" class="item-container">
+
+            <th class="item-cell"> {{ item.username }}
+              <button class="insertbtn" @click="editproduct(item)">insert</button>
+            </th>
+            <th class="item-cell hoverable" @click="showdiv(item.name, item.description);">
+              {{item.description}}
+              <button class="insertbtn" @click="editdescription('sku','user','desc')">insert</button>
+            </th>
+            <th class="item-cell hoverable" @click="showdiv(item.name, item.image);">
+              {{item.image}}
+              <button class="insertbtn" @click="editimage(item)">insert</button>
+            </th>
+            <th class="item-cell">
+              {{item.quantity}}
+              <button class="insertbtn" @click="editquantity(item)">insert</button>
+            </th>
+            <th class="item-cell">
+              {{item.sku}}
+              <button class="insertbtn" @click="editsku(item)">insert</button>
+            </th>
+            <th class="item-cell">
+              <button class="list-button" @click="deleteitem(item)">Delete</button>
+            </th>
+
+          </tr>
+          <tr>
+
+            <th class="item-cell input">
+              <input class="in" type="text" name="product" maxlength="200" v-model="product">
+            </th>
+            <th class="item-cell input">
+              <input class="in" type="text" name="description" maxlength="200" v-model="description">
+            </th>
+            <th class="item-cell input">
+              <input type="file" id="imagein" v-on="image" accept="image/png, image/jpeg" />
+            </th>
+            <th class="item-cell input">
+              <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
+            </th>
+            <th class="item-cell input">
+              <input class="in" type="text" name="sku" maxlength="200" v-model="sku">
+            </th>
+            <th class="item-cell input">
+              <button class="" @click="submititem">Submit</button>
+            </th>
+
+          </tr>
+
+        </table>
+        <div id="expand">
+          <h2 id="info" v-html="displayInfo">{{displayInfo}}</h2>
+          <br>
+          <span v-html="displayData"> {{displayData}} </span>
         </div>
-        <div id=maincol>
-
-          <div id=list>
-          <div id = "items">
-
-            <table class="item-list">
-
-              <tr>
-
-                <th class="item-attribute left">
-                  product
-                </th>
-                <th class="item-attribute">
-                  description
-                </th>
-                <th class="item-attribute">
-                  image
-                </th>
-                <th class="item-attribute right">
-                  quantity
-                </th>
-
-              </tr>
-
-              <tr v-for="item in items" class="item-container">
-
-                <th class="item-cell product"> {{ item.username }} product
-                  <button class="insertbtn" @click="editproduct(item)">insert</button>
-                </th>
-                <th class="item-cell description" @click="showdiv('product', 'description');">
-                  {{item.description}}description
-                  <button class="insertbtn" @click="editdescription(item)">insert</button>
-                </th>
-                <th class="item-cell image">
-                  {{item.image}} image
-                  <button class="insertbtn" @click="editimage(item)">insert</button>
-                </th>
-                <th class="item-cell quantity">
-                  {{item.quantity}} 5
-                  <button class="insertbtn" @click="editquantity(item)">insert</button>
-                </th>
-                <th class="item-cell button">
-                  <button class="list-button" @click="deleteitem(item)">Delete</button>
-                </th>
-
-              </tr>
-              <tr>
-
-                <th class="item-cell input">
-                  <input class="in" type="text" name="product" maxlength="200" v-model="product">
-                </th>
-                <th class="item-cell input">
-                  <input class="in" type="text" name="description" maxlength="200" v-model="description">
-                </th>
-                <th class="item-cell input">
-                  <input type="file"
-                      id="imagein" v-on="image"
-                      accept="image/png, image/jpeg" />
-                </th>
-                <th class="item-cell input">
-                  <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
-                </th>
-                <th class="item-cell input">
-                  <button class="" @click="submititem">Submit</button>
-                </th>
-
-              </tr>
-
-            </table>
-            <div id="expand">
-              <h2 id="info" v-html="displayInfo">{{displayInfo}}</h2>
-              <br>
-              <span id="items" v-html="displayData">
-                {{displayData}} data
-              </span>
-            </div>
-          </div>
-
       </div>
-
-      <script>
-      var app = new Vue({
-          el: '#items',
-
-          data:
-          {
-            displayInfo:'',
-            displayData:'',
-
-            items: [],
-            itemText: '',
-
-            product: '',
-            description: '',
-            image:'',
-            quantity: '',
-
-            showDiv:'',
+    </div>
 
 
-          },
-          methods:
-          {
-            //--------METHODS-------
-            getAllItems()
-            {
-              $.ajax({
-                url: '../public/api/getitems.php',
-                data: {type_id: 2}
-              }).done(function(data)
-              {
-                this.items = JSON.parse(data);
-              }.bind(this))
-            },
-            postitem()
-            {
-              $.ajax({
-                method: 'POST',
-                url: '../public/api/postitem.php',
-                data:
+    <script>
+        var app = new Vue({
+            el: '#items',
+            data:
                 {
-                  product: this.product,
-                  owner: 'owner', //TODO get username from session
-                  description: this.description,
-                  quantity: this.quantity
-                }
-              }).done(function(data)
-              {
-                console.log(this)
-                console.log('posted item:' + this.itemText)
-                this.itemText = "";
-                this.product = "",
-                this.description = "",
-                this.quantity = "",
-                this.getAllItems()
-              }.bind(this))
-            },
-
-
-            //----------EVENTS-----------
-            showdiv(product, data)
-            {
-
-              showDiv = document.getElementById('expand');
-              showDiv.style.display = "block";
-              this.displayInfo = product;
-              this.displayData = data;
-
-              console.log(this.displayInfo);
-              //document.getElementById('info').innerHTML = product;
-              //document.getElementById('data').innerHTML = data;
-
-            },
-            submititem(event)
-            {
-              this.postitem()
-            },
-            deleteitem(item)
-            {
-              $.ajax({
-                method: 'POST',
-                url: '../public/api/deleteitem.php',
-                data:
+                    displayInfo:'',
+                    displayData:'',
+                    items: [],
+                    product: '',
+                    description: '',
+                    image:'',
+                    quantity: '',
+                    sku: '',
+                    showDiv:'',
+                },
+            methods:
                 {
-                  item_sku: item.sku,
-                  item_user: item.user
-                }
-              }).done(function(data)
-              {
-                console.log("deleted item " + item.product)
+                    //--------METHODS-------
+                    editdescription(sku,user,desc)
+                    {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../public/api/editdescription.php',
+                            data:
+                                {
+                                    //SKU + user together identify item:
+                                    item_sku: sku,
+                                    item_user: user,
+                                    //The new product name
+                                    edit_product: desc
+                                }
+                        }).done(function(data)
+                        {
+                            console.log('edited product')
+                            this.getAllItems()
+                        }.bind(this))
+                    },
+                    getAllItems()
+                    {
+                        $.ajax({
+                            url: '../public/api/getitems.php',
+                            data: {type_id: 2}
+                        }).done(function(data)
+                        {
+                            this.items = JSON.parse(data);
+                        }.bind(this))
+                    },
+                    addItem()
+                    {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../public/api/postitem.php',
+                            data:
+                                {
+                                    product: this.product,
+                                    image: this.image,
+                                    description: this.description,
+                                    quantity: this.quantity
+                                }
+                        }).done(function(data)
+                        {
+                            console.log(this)
+                            console.log('posted item:' + this.product)
+                            this.product = "";
+                            this.product = "",
+                                this.description = "",
+                                this.quantity = "",
+                                this.getAllItems()
+                        }.bind(this))
+                    },
+                    //----------EVENTS-----------
+                    editsku(item)
+                    {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../public/api/editimage.php',//TODO js
+                            data:
+                                {
+                                    //SKU + user together identify item:
+                                    item_sku: item.sku,
+                                    item_user: item.user,
+                                    //The new product name
+                                    edit_image: this.image //TODO image format?
+                                }
+                        }).done(function(data)
+                        {
+                            console.log('edited image')
+                            this.getAllItems()
+                        }.bind(this))
+                    },
+                    editquantity(item)
+                    {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../public/api/editquantity.php', //TODO js
+                            data:
+                                {
+                                    //SKU + user together identify item:
+                                    item_sku: item.sku,
+                                    item_user: item.user,
+                                    //The new product name
+                                    edit_sku: this.sku
+                                }
+                        }).done(function(data)
+                        {
+                            console.log('edited sku')
+                            this.getAllItems()
+                        }.bind(this))
+                    },
+                    editimage(item)
+                    {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../public/api/editimage.php',//TODO js
+                            data:
+                                {
+                                    //SKU + user together identify item:
+                                    item_sku: item.sku,
+                                    item_user: item.user,
+                                    //The new product name
+                                    edit_image: this.image //TODO image format?
+                                }
+                        }).done(function(data)
+                        {
+                            console.log('edited image')
+                            this.getAllItems()
+                        }.bind(this))
+                    },
+                    editquantity(item)
+                    {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../public/api/editquantity.php', //TODO js
+                            data:
+                                {
+                                    //SKU + user together identify item:
+                                    item_sku: item.sku,
+                                    item_user: item.user,
+                                    //The new product name
+                                    edit_product: this.quantity
+                                }
+                        }).done(function(data)
+                        {
+                            console.log('edited quantity')
+                            this.getAllItems()
+                        }.bind(this))
+                    },
+                    showdiv(product, data)
+                    {
+                        showDiv = document.getElementById('expand');
+                        showDiv.style.display = "block";
+                        this.displayInfo = product;
+                        this.displayData = data;
+                        console.log("displayinfo: " + this.displayInfo);
+                        //document.getElementById('info').innerHTML = product;
+                        //document.getElementById('data').innerHTML = data;
+                    },
+                    editproduct(item)
+                    {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../public/api/editproduct.php',
+                            data:
+                                {
+                                    //SKU + user together identify item:
+                                    item_sku: item.sku,
+                                    item_user: item.user,
+                                    //The new product name
+                                    edit_product: this.product
+                                }
+                        }).done(function(data)
+                        {
+                            console.log('edited product')
+                            this.getAllItems()
+                        }.bind(this))
+                    },
+                    submititem(event)
+                    {
+                        this.addItem()
+                    },
+                    deleteitem(item)
+                    {
+                        $.ajax({
+                            method: 'POST',
+                            url: '../public/api/deleteitem.php',
+                            data:
+                                {
+                                    item_sku: item.sku,
+                                    item_user: item.user
+                                }
+                        }).done(function(data)
+                        {
+                            console.log("deleted item " + this.product);
+                            this.getAllItems()
+                        }.bind(this))
+                    },
+                },
+            mounted()
+            {
                 this.getAllItems()
-              }.bind(this))
-            },
-
-          },
-
-          //------EDIT EVENTS------
-          editproduct(item)
-          {
-            $.ajax({
-              method: 'POST',
-              url: '../public/api/editproduct.php',
-              data:
-              {
-                //SKU + user together identify item:
-                item_sku: item.sku,
-                item_user: item.user,
-                //The new product name
-                edit_product: this.product
-              }
-            }).done(function(data)
-            {
-              console.log('edited product')
-              this.getAllItems()
-            }.bind(this))
-          },
-          editdescription(item)
-          {
-            $.ajax({
-              method: 'POST',
-              url: '../public/api/editdescription.php',
-              data:
-              {
-                //SKU + user together identify item:
-                item_sku: item.sku,
-                item_user: item.user,
-                //The new product name
-                edit_product: this.description
-              }
-            }).done(function(data)
-            {
-              console.log('edited product')
-              this.getAllItems()
-            }.bind(this))
-          },
-          editimage(item)
-          {
-            $.ajax({
-              method: 'POST',
-              url: '../public/api/editimage.php',//TODO js
-              data:
-              {
-                //SKU + user together identify item:
-                item_sku: item.sku,
-                item_user: item.user,
-                //The new product name
-                edit_image: this.image //TODO image format?
-              }
-            }).done(function(data)
-            {
-              console.log('edited image')
-              this.getAllItems()
-            }.bind(this))
-          },
-          editquantity(item)
-          {
-            $.ajax({
-              method: 'POST',
-              url: '../public/api/editquantity.php', //TODO js
-              data:
-              {
-                //SKU + user together identify item:
-                item_sku: item.sku,
-                item_user: item.user,
-                //The new product name
-                edit_product: this.quantity
-              }
-            }).done(function(data)
-            {
-              console.log('edited quantity')
-              this.getAllItems()
-            }.bind(this))
-          },
-          mounted()
-          {
-            this.getAllItems()
-          }
+            }
         })
-        </script>
-    </body>
+    </script>
+  </div>
+</div>
+</body>
 
 </html>

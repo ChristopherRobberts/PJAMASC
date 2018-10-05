@@ -3,12 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-let dataBaseConnection = require('./integration/DataBaseConnection.js');
-let Controller = require('./Controller/Controller.js');
-const util = require('util');
-let encrypt = require('./encryption/encryption');
 
-var indexRouter = require('./routes/index');
+const dataBaseConnection = require('./Integration/DatabaseConnection.js');
+const controller = require('./Controller/Controller.js');
+const util = require('util');
+const encrypt = require('./util/encryption');
+const expressSession = require('express-session');
+
+const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/loginPage');
+const itemRouter = require('./routes/item');
 
 var app = express();
 
@@ -21,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressSession({ secret: 'pjamasc', saveUninitialized: false, resave: false}));
 
 // Form validation and sanitization
 /*
@@ -35,6 +40,8 @@ app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
 */
 
 app.use('/', indexRouter);
+app.use('/', loginRouter);
+app.use('/item', itemRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -99,4 +106,5 @@ Controller.updateItemQuantity("AB000001", 5, 10, 1, function(status) {
    console.log(status);
 });
 */
+
 module.exports = app;
