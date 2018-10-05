@@ -8,10 +8,10 @@ router.post('/login', function(req, res) {
     const password = req.body.password;
     controller.login(userName, password, function(result) {
         if (result.loginSuccess) {
-            req.session.userName = userName;
+            req.session.userName = result.username;
             req.session.ID = result.userID;
             req.session.avatar = result.avatar;
-            res.redirect('/dashboard');
+            res.render('dashboard', { 'username': req.session.userName});
         } else {
             res.redirect('/');
         }

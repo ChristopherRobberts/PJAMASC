@@ -114,7 +114,8 @@ module.exports = {
                     fn({
                         loginSuccess: passValidated,
                         userID: result[0][0].id,
-                        avatar: result[0][0].avatar
+                        avatar: result[0][0].avatar,
+                        username: result[0][0].name
                     });
                 } else {
                     fn({

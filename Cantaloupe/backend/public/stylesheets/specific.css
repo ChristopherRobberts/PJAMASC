@@ -31,12 +31,8 @@
     padding: 10px;
     display: block;
     float: right;
-    /*background-color: mediumpurple;*/
-}
-
-#login {
-    float: right;
     clear: right;
+    /*background-color: mediumpurple;*/
 }
 
 #login input[type=text], #login input[type=password]{
@@ -109,7 +105,6 @@ li a {
     text-emphasis-style: none;
     text-decoration: none;
     font-size: 35px;
-    font: Georgia;
 }
 
 li b {
@@ -121,7 +116,6 @@ li b {
     text-emphasis-style: none;
     text-decoration: none;
     font-size: 20px;
-    font: Georgia;
     margin: 6px;
 }
 
@@ -137,7 +131,8 @@ li a:active {
     overflow: hidden;
     background-size: cover;
     background-position: center;
-    background-image: url('logo.png');}
+    /*background-image: url('logo.png')*/;
+}
 
 /* Dashboard */
 
@@ -149,11 +144,19 @@ li a:active {
 
 #username{
     float: right;
+    /*
     padding-top: 23px;
     padding-right: 21px;
+    */
     font-size: 22px;
     color: #bbb;
-    font-style: normal;
+    margin: 6px;
+    text-align: right;
+    height: 100%;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    padding-left: 0.6em;
+    border-left: 2px solid #bbb;
 }
 
 .item-list
@@ -205,8 +208,6 @@ li a:active {
 
 .item-cell.input{
     background-color: #ccc;
-    border-width: 0px 2px 2px 2px;
-    border-color: white;
     border: 2px solid #eee;
 }
 
