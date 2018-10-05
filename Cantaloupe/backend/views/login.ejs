@@ -1,43 +1,41 @@
 
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="/stylesheets/reset.css" rel="stylesheet">
+    <link href="/stylesheets/general.css" rel="stylesheet">
+    <link href="/stylesheets/specific.css" rel="stylesheet">
+    <title>Cantaloupe</title>
+</head>
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="/stylesheets/reset.css" rel="stylesheet">
-        <link href="/stylesheets/general.css" rel="stylesheet">
-        <link href="/stylesheets/specific.css" rel="stylesheet">
+<body>
 
-        <title>Cantaloupe</title>
+<div class="wrapper">
+    <div id="header">
+        <h1 id="pagetitle">IMS</h1>
+        <div id="login">
+            <form name="loginForm" action = "/login" method="post">
+                <input type="text" class="loginfield" name="userName" placeholder="Enter username" required>
+                <label for="userName">Username</label>
 
-    </head>
+                <input type="password" class="loginfield" name="password" placeholder="Enter password" required>
+                <label for="password">Password</label>
 
-    <body>
+                <input type="submit" id="loginbtn" class="logbutton" value="Log in">
 
-      <div class="wrapper">
-
-        <!-- Include subview loginbar -->
-        <!--php include 'subviews/loginbar.html';-->
-      <ul>
-          <form name="loginForm" action = "/login" method="post">
-              <li><a><input type="submit" id="loginbtn" value="Log in"></a></li>
-              <li><b>Password <input type="password" name="password"></b></li>
-              <li><b>Username <input type="text" name="userName"></b></li>
-          </form>
-      </ul>
-
-        <div id=maincol>
-
-          <img id="portrait" src = "/images/me.png" alt="img src error" height="300">
-
-          <H1 class="front-text title">
-            Cantaloupe Inventory System
-          </H1>
-          <span class="front-text">
-            Vad du vill för att- .. oh shit
-          </span>
+            </form>
         </div>
-      </div>
-    </body>
+    </div>
+
+    <div id=maincol>
+
+        <img id="portrait" src = "/images/me.png" alt="img src error" height="300">
+        <h1 class="front-text title">Cantaloupe Inventory Management System</h1>
+        <span class="front-text">Please log in to continue.</span>
+
+    </div>
+</div>
+</body>
 </html>

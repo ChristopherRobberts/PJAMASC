@@ -10,20 +10,19 @@
     <link href="/stylesheets/specific.css" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
-
     <title>Cantaloupe</title>
 
 </head>
 <body>
 
 <div class="wrapper">
-    <div id=row1>
-        <h1 id="dash">Dashboard</h1>
+    <div id=header>
+        <h1 id="pagetitle">Dashboard</h1>
         <img id=loginpic src="/images/me.png" alt="img src error" height="50">
         <div id="username"></div>
 
         <form name="logoutform" action="logout" method="post">
-            <input type="submit" id="logoutbtn" value="Log out"/>
+            <input type="submit" id="logoutbtn" class="logbutton" value="Log out"/>
         </form>
     </div>
 
@@ -32,11 +31,11 @@
             <div id="items">
                 <table class="item-list">
                     <tr>
-                        <th class="item-attribute left"> product</th>
-                        <th class="item-attribute"> description</th>
-                        <th class="item-attribute"> image</th>
-                        <th class="item-attribute"> quantity</th>
-                        <th class="item-attribute right"> sku</th>
+                        <th class="item-attribute left">Product</th>
+                        <th class="item-attribute">Description</th>
+                        <th class="item-attribute">Image</th>
+                        <th class="item-attribute">Quantity</th>
+                        <th class="item-attribute right">Sku</th>
                     </tr>
 
                     <tr v-for="item in items" class="item-container">
