@@ -1,3 +1,12 @@
+$(document).ready(function() {
+    $.ajax({
+        method: 'GET',
+        url: '/getProfileImage',
+    }).done(function (data) {
+        document.getElementById('loginpic').src = data;
+    });
+});
+
 var app = new Vue({
     el: '#items',
     data: {
@@ -12,7 +21,8 @@ var app = new Vue({
         quantity: '',
         sku: '',
         showDiv: '',
-        image: ''
+        image: '',
+        profileImage: ''
     },
     methods: {
         //--------METHODS-------
@@ -84,7 +94,7 @@ var app = new Vue({
                         amount: this.quantity
                     }
             }).done(function (data) {
-                console.log('edited quantity')
+                console.log('edited quantity');
                 this.getAllItems()
             }.bind(this))
         },
@@ -169,4 +179,4 @@ var app = new Vue({
     mounted() {
         this.getAllItems()
     }
-})
+});
