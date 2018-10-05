@@ -5,36 +5,34 @@ const multer = require('multer');
 const path = require('path');
 const util = require('util');
 
-router.post('/deleteItem', function (req, res) {
-    if (!req.session.userName) {
-        res.status(401);
-        return;
+const isLoggedIn = (req) => req.session.ID;
+
+/**
+ * Middleware to check if user is logged in or not. If the user is not logged in, the request will be redirected to
+ * the log in page.
+ */
+router.use(function (req, res, next) {
+    if (isLoggedIn(req)) {
+        return next();
     }
 
-    const sku = req.body.sku;
+    res.redirect('/');
+});
 
+router.post('/deleteItem', function (req, res) {
+    const sku = req.body.sku;
     controller.deleteItem(sku, req.session.ID, function (result) {
         res.json(result);
     })
 });
 
 router.get('/getAllItems', function (req, res) {
-    if (!req.session.ID) {
-        res.json("failure");
-        return;
-    }
-
     controller.getItems(req.session.ID, function (data) {
         res.json(data[0]);
     });
 });
 
 router.post('/edit-description', function (req, res) {
-    if (!req.session.ID) {
-        res.json("not logged in");
-        return;
-    }
-
     const {
         sku,
         description
@@ -46,10 +44,6 @@ router.post('/edit-description', function (req, res) {
 });
 
 router.post('/editSKU', function (req, res) {
-        if (!req.session.ID) {
-            res.json("you must be logged in to edit.");
-        }
-
         const {
             sku,
             newSku
@@ -62,10 +56,6 @@ router.post('/editSKU', function (req, res) {
 );
 
 router.post('/editQuantity', function (req, res) {
-    if (!req.session.ID) {
-        res.json("you must be logged in to edit");
-    }
-
     const {
         sku,
         amount
@@ -78,11 +68,6 @@ router.post('/editQuantity', function (req, res) {
 
 
 router.post('/edit-name', function (req, res) {
-    if (!req.session.ID) {
-        res.json("not logged in");
-        return;
-    }
-
     const {
         sku,
         product
@@ -94,11 +79,6 @@ router.post('/edit-name', function (req, res) {
 });
 
 router.post('/edit-image', function (req, res) {
-    if (!req.session.ID) {
-        res.json("not logged in");
-        return;
-    }
-
     const {
         sku,
         path
@@ -109,6 +89,9 @@ router.post('/edit-image', function (req, res) {
     })
 });
 
+/**
+ * Define path were the uploaded file should be stored and file name.
+ */
 const storage = multer.diskStorage({
     destination: "../public/images",
     filename: function (req, file, callback) {
@@ -123,12 +106,15 @@ const upload = multer({
     }
 }).single("profileImage"); //Field name and max count
 
+/**
+ *Checks if the given file is an image.
+ */
 function checkFileType(file, callback) {
     const fileTypes = /jpeg|jpg|png|gif/;
     const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
     const mimeType = fileTypes.test(file.mimetype);
     if (mimeType && extName) {
-        return callback(null, true)
+        return callback(null, true);
     } else {
         callback('Error: Images only!');
     }
@@ -153,11 +139,6 @@ router.post('/fileUpload', function (req, res) {
 });
 
 router.post('/addItem', function (req, res) {
-    if (!req.session.ID) {
-        res.json("not logged in");
-        return;
-    }
-
     upload(req, res, function (err) {
         if (err) {
             res.render('dashboard', {msg: err});

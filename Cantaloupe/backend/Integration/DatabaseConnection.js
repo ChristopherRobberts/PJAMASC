@@ -113,12 +113,14 @@ module.exports = {
                     let passValidated = encrypter.validatePass(password, result[0][0].password);
                     fn({
                         loginSuccess: passValidated,
-                        userID: result[0][0].id
+                        userID: result[0][0].id,
+                        avatar: result[0][0].avatar
                     });
                 } else {
                     fn({
                         loginSuccess: false,
-                        userID: null
+                        userID: null,
+                        avatar: null
                     });
                 }
             }
