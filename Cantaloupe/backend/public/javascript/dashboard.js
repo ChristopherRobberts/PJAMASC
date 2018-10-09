@@ -1,10 +1,20 @@
 $(document).ready(function () {
     $.ajax({
         method: 'GET',
-        url: '/getProfileImage',
+        url: '/getProfileImage'
     }).done(function (data) {
         document.getElementById('loginpic').src = data;
     });
+});
+
+
+$(document).ready(function () {
+    $.ajax({
+        method: 'GET',
+        url: '/getUserName'
+    }).done((data) => {
+        document.getElementById('username').innerHTML += data;
+    })
 });
 
 var app = new Vue({
