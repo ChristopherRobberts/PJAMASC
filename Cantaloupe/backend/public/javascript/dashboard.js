@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $.ajax({
         method: 'GET',
         url: '/getProfileImage',
@@ -41,6 +41,40 @@ var app = new Vue({
                 this.getAllItems();
             }.bind(this))
         },
+
+        incrementQuantity(item) {
+            console.log(this.quantity);
+            $.ajax({
+                method: 'POST',
+                url: '/item/editQuantity',
+                data:
+                    {
+                        //SKU + user together identify item:
+                        sku: item.sku,
+                        //The new product name
+                        amount: this.quantity
+                    }
+            }).done(function (data) {
+                this.getAllItems();
+            }.bind(this))
+        },
+
+        decrementQuantity(item) {
+            $.ajax({
+                method: 'POST',
+                url: '/item/editQuantity',
+                data:
+                    {
+                        //SKU + user together identify item:
+                        sku: item.sku,
+                        //The new product name
+                        amount: -this.quantity
+                    }
+            }).done(function (data) {
+                this.getAllItems();
+            }.bind(this))
+        },
+
         getAllItems() {
             $.ajax({
                 url: './item/getAllItems'

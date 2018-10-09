@@ -250,6 +250,18 @@ li a:active {
     font-style: italic;
 }
 
+.quickAccess
+{
+    float: right;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: solid 1px;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    font-style: italic;
+}
+
 /* Expand image/description */
 #expand{
     display: none;

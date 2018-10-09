@@ -54,7 +54,9 @@
                         </th>
                         <th class="item-cell">
                             {{ item.quantity }}
-                            <button class="insertbtn" @click="editquantity(item)">insert</button>
+                            <!--<button class="insertbtn" @click="editquantity(item)">insert</button>-->
+                            <button class="quickAccess" @click="incrementQuantity(item)">+</button>
+                            <button class="quickAccess" @click="decrementQuantity(item)">-</button>
                         </th>
                         <th class="item-cell">
                             {{ item.sku }}
@@ -79,7 +81,7 @@
                             </form>
                         </th>
                         <th class="item-cell input">
-                            <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
+                            <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity" pattern="([0-9])\w+">
                         </th>
                         <th class="item-cell input">
                             <input class="in" type="text" name="sku" maxlength="200" v-model="sku">
