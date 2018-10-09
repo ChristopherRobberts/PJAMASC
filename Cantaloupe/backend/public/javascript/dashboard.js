@@ -11,8 +11,10 @@ var app = new Vue({
     el: '#items',
     data: {
         displayInfo: '',
-        displayData: '',
+        displayDesc: '',
         displayImg: '',
+        displayQty: '',
+        displaySku: '',
         items: [],
         itemText: '',
         product: '',
@@ -80,7 +82,7 @@ var app = new Vue({
                 url: './item/getAllItems'
             }).done(function (data) {
                 this.items = data;
-                console.log(data);
+                //console.log(data);
             }.bind(this))
         },
         addItem() {
@@ -181,15 +183,20 @@ var app = new Vue({
             showDiv = document.getElementById('expand');
             descDiv = document.getElementById('expandDesc');
             imgDiv = document.getElementById('expandImg');
-            showDiv.style.display = "block";
-            descDiv.style.display = "block";
-            imgDiv.style.display = "none";
+            qtyDiv = document.getElementById('expandQty');
+            skuDiv = document.getElementById('expandSku');
 
             this.displayInfo = item.name;
             this.displayDesc = item.description;
             this.displayQty = item.quantity;
             this.displaySku = item.sku;
-            ;
+
+            showDiv.style.display = "block";
+            descDiv.style.display = "block";
+            imgDiv.style.display = "none";
+            qtyDiv.style.display = "block";
+            skuDiv.style.display = "block";
+
             //console.log("displayInfo: " + this.displayData);
             //document.getElementById('info').innerHTML = product;
             //document.getElementById('data').innerHTML = data;
@@ -198,16 +205,17 @@ var app = new Vue({
             showDiv = document.getElementById('expand');
             descDiv = document.getElementById('expandDesc');
             imgDiv = document.getElementById('expandImg');
-            showDiv.style.display = "block";
-            descDiv.style.display = "none";
-            imgDiv.style.display = "block";
-
+            qtyDiv = document.getElementById('expandQty');
+            skuDiv = document.getElementById('expandSku');
 
             this.displayInfo = item.name;
             this.displayImg = item.image;
-            console.log("DisplayImg: " + this.displayImg);
-            //document.getElementById('info').innerHTML = product;
-            //document.getElementById('data').innerHTML = data;
+
+            showDiv.style.display = "block";
+            descDiv.style.display = "none";
+            imgDiv.style.display = "block";
+            qtyDiv.style.display = "none";
+            skuDiv.style.display = "none";
         },
         submititem(event) {
             this.addItem()
