@@ -186,8 +186,11 @@ var app = new Vue({
             imgDiv.style.display = "none";
 
             this.displayInfo = item.name;
-            this.displayData = item.description;
-            console.log("displayInfo: " + this.displayData);
+            this.displayDesc = item.description;
+            this.displayQty = item.quantity;
+            this.displaySku = item.sku;
+            ;
+            //console.log("displayInfo: " + this.displayData);
             //document.getElementById('info').innerHTML = product;
             //document.getElementById('data').innerHTML = data;
         },

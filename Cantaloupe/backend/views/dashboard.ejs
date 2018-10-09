@@ -94,8 +94,9 @@
             </table>
             <div id="expand">
                 <h2 id="info" v-html="displayInfo">{{displayInfo}}</h2>
-                <br>
-                <span id="expandDesc" v-html="displayData"> {{displayData}} data </span>
+                <div id="expandDesc" v-html="displayDesc"> {{displayDesc}} </div>
+                <div id="expandQty" v-html="displayQty"> {{displayQty}} </div>
+                <div id="expandSku" v-html="displaySku"> {{displaySku}} </div>
                 <img id="expandImg" :src="displayImg" />
             </div>
         </div>
