@@ -77,8 +77,8 @@ router.post('/editQuantity', function (req, res) {
         sku,
         amount
     } = req.body;
-
-    controller.updateItemQuantity(sku, req.session.ID, amount, function (data) {
+    
+    controller.updateItemQuantity(sku, req.session.ID, parseInt(amount), function (data) {
         res.json(data);
     })
 });

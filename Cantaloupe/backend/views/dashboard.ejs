@@ -39,53 +39,55 @@
 
                 <tr v-for="item in items" class="item-container">
 
-                    <td class="item-cell">
-                        {{ item.name }}
-                        <button class="insertbtn" @click="editproduct(item)">insert</button>
-                    </td>
-                    <td class="item-cell hoverable" @click="showdesc(item);">
-                        {{ item.description }}
-                        <button class="insertbtn" @click="editdescription(item)">insert</button>
-                    </td>
-                    <td class="item-cell hoverable" @click="showimg(item);">
-                        <img :src="item.image" class="responsive-img"/>
-                        <input type="submit" class="insertbtn" name="submitForm" value="edit" @click="editimage(item)" form="uploadImage"/>
-                    </td>
-                    <td class="item-cell">
-                        {{ item.quantity }}
-                        <button class="insertbtn" @click="editquantity(item)">insert</button>
-                    </td>
-                    <td class="item-cell">
-                        {{ item.sku }}
-                        <button class="insertbtn" @click="editsku(item)">insert</button>
-                    </td>
-                    <td class="item-cell">
-                        <button class="list-button" @click="deleteitem(item)">Delete</button>
-                    </td>
+                        <td class="item-cell">
+                            {{ item.name }}
+                            <button class="insertbtn" @click="editproduct(item)">insert</button>
+                        </td>
+                        <td class="item-cell hoverable" @click="showdesc(item);">
+                            {{ item.description }}
+                            <button class="insertbtn" @click="editdescription(item)">insert</button>
+                        </td>
+                        <td class="item-cell hoverable" @click="showimg(item);">
+                            <img :src="item.image" class="responsive-img"/>
+                            <input type="submit" class="insertbtn" name="submitForm" value="edit" @click="editimage(item)" form="uploadImage"/>
+                        </td>
+                        <td class="item-cell">
+                            {{ item.quantity }}
+                            <!--<button class="insertbtn" @click="editquantity(item)">insert</button>-->
+                            <button class="quickAccess" @click="incrementQuantity(item)">+</button>
+                            <button class="quickAccess" @click="decrementQuantity(item)">-</button>
+                        </td>
+                        <td class="item-cell">
+                            {{ item.sku }}
+                            <button class="insertbtn" @click="editsku(item)">insert</button>
+                        </td>
+                        <td class="item-cell">
+                            <button class="list-button" @click="deleteitem(item)">Delete</button>
+                        </td>
 
                 </tr>
                 <tr>
 
-                    <td class="item-cell input">
-                        <input class="in" type="text" name="product" maxlength="244" v-model="product">
-                    </td>
-                    <td class="item-cell input">
-                        <input class="in" type="text" name="description" maxlength="255" v-model="description">
-                    </td>
-                    <td class="item-cell input">
-                        <form id="uploadImage" enctype="multipart/form-data" method="POST">
-                            <input id="myFile" name="profileImage" type="file" accept=".jpg,.jpeg,.png"/>
-                        </form>
-                    </td>
-                    <td class="item-cell input">
-                        <input class="in" type="text" name="quantity" maxlength="10" v-model="quantity">
-                    </td>
-                    <td class="item-cell input">
-                        <input class="in" type="text" name="sku" maxlength="50" v-model="sku">
-                    </td>
-                    <td class="item-cell input">
-                        <button class="" @click="submititem">Submit</button>
-                    </td>
+                        <td class="item-cell input">
+                            <input class="in" type="text" name="product" maxlength="244" v-model="product">
+                        </td>
+                        <td class="item-cell input">
+                            <input class="in" type="text" name="description" maxlength="255" v-model="description">
+                        </td>
+                        <td class="item-cell input">
+                            <form id="uploadImage" enctype="multipart/form-data" method="POST">
+                                <input id="myFile" name="profileImage" type="file" accept=".jpg,.jpeg,.png"/>
+                            </form>
+                        </td>
+                        <td class="item-cell input">
+                            <input class="in" type="text" name="quantity" maxlength="10" v-model="quantity" pattern="([0-9])\w+">
+                        </td>
+                        <td class="item-cell input">
+                            <input class="in" type="text" name="sku" maxlength="50" v-model="sku">
+                        </td>
+                        <td class="item-cell input">
+                            <button class="" @click="submititem">Submit</button>
+                        </td>
 
                 </tr>
 
