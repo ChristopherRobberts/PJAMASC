@@ -20,8 +20,8 @@
 }
 
 .responsive-img{
-    width:50%;
-    height: 20%;
+    /*width:50%;
+    height: 20%;*/
     max-width: 56px;
     max-height: 56px;
 }
@@ -204,6 +204,9 @@ li a:active {
     font-family: sans-serif;
     font-weight: lighter;
     max-width: 200px;
+    max-height: 70px;
+    word-wrap: break-word;
+    overflow: hidden;
 }
 .item-cell.hoverable:hover{
     background-color: #ddd;
@@ -213,6 +216,8 @@ li a:active {
     background-color: #ccc;
     border: 2px solid #eee;
 }
+
+
 
 .in{
     background-color: transparent;

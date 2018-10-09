@@ -67,21 +67,21 @@
                 <tr>
 
                     <td class="item-cell input">
-                        <input class="in" type="text" name="product" maxlength="200" v-model="product">
+                        <input class="in" type="text" name="product" maxlength="244" v-model="product">
                     </td>
                     <td class="item-cell input">
-                        <input class="in" type="text" name="description" maxlength="200" v-model="description">
+                        <input class="in" type="text" name="description" maxlength="255" v-model="description">
                     </td>
                     <td class="item-cell input">
-                        <form id="uploadImage" enctype="multipart/form-data" method="POST" accept=".jpg .jpeg .png">
-                            <input id="myFile" name="profileImage" type="file"/>
+                        <form id="uploadImage" enctype="multipart/form-data" method="POST">
+                            <input id="myFile" name="profileImage" type="file" accept=".jpg,.jpeg,.png"/>
                         </form>
                     </td>
                     <td class="item-cell input">
-                        <input class="in" type="text" name="quantity" maxlength="200" v-model="quantity">
+                        <input class="in" type="text" name="quantity" maxlength="10" v-model="quantity">
                     </td>
                     <td class="item-cell input">
-                        <input class="in" type="text" name="sku" maxlength="200" v-model="sku">
+                        <input class="in" type="text" name="sku" maxlength="50" v-model="sku">
                     </td>
                     <td class="item-cell input">
                         <button class="" @click="submititem">Submit</button>
