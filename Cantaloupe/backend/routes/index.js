@@ -12,6 +12,7 @@ router.get('/', function (req, res) {
     }
 });
 
+/* Dashboard page. A user must be logged in to view it. */
 router.get('/dashboard', function (req, res) {
     if (req.session.ID) {
         res.render('dashboard');
@@ -20,6 +21,7 @@ router.get('/dashboard', function (req, res) {
     }
 });
 
+/* Logging out. Sends the user back to home page. */
 router.post('/logout', function(req, res){
     req.session.userName = null;
     req.session.ID = null;
