@@ -8,6 +8,10 @@ const util = require('util');
 const isLoggedIn = (req) => req.session.ID;
 
 /**
+ * This router is mainly used for the ajax requests from client.
+ */
+
+/**
  * Middleware to check if user is logged in or not. If the user is not logged in, the request will be redirected to
  * the log in page.
  */
@@ -19,6 +23,7 @@ router.use(function (req, res, next) {
     res.redirect('/');
 });
 
+/* Remove an item */
 router.post('/deleteItem', function (req, res) {
     const sku = req.body.sku;
     controller.deleteItem(sku, req.session.ID, function (result) {
@@ -26,12 +31,18 @@ router.post('/deleteItem', function (req, res) {
     })
 });
 
+/**
+ * Respond with a list of all items owned by a user.
+ */
 router.get('/getAllItems', function (req, res) {
     controller.getItems(req.session.ID, function (data) {
         res.json(data[0]);
     });
 });
 
+/**
+ * Change description of an item.
+ */
 router.post('/edit-description', function (req, res) {
     const {
         sku,
@@ -43,6 +54,9 @@ router.post('/edit-description', function (req, res) {
     })
 });
 
+/**
+ * Change SKU of an item.
+ */
 router.post('/editSKU', function (req, res) {
         const {
             sku,
@@ -55,6 +69,9 @@ router.post('/editSKU', function (req, res) {
     }
 );
 
+/**
+ * Change Quantity of an item.
+ */
 router.post('/editQuantity', function (req, res) {
     const {
         sku,
@@ -66,7 +83,9 @@ router.post('/editQuantity', function (req, res) {
     })
 });
 
-
+/**
+ * Change name of an item.
+ */
 router.post('/edit-name', function (req, res) {
     const {
         sku,
@@ -78,6 +97,9 @@ router.post('/edit-name', function (req, res) {
     });
 });
 
+/**
+ * Change image of an item.
+ */
 router.post('/edit-image', function (req, res) {
     const {
         sku,
@@ -90,7 +112,7 @@ router.post('/edit-image', function (req, res) {
 });
 
 /**
- * Define path were the uploaded file should be stored and file name.
+ * Define path where the uploaded file should be stored, and file name.
  */
 const storage = multer.diskStorage({
     destination: "../public/images",
@@ -99,6 +121,9 @@ const storage = multer.diskStorage({
     }
 });
 
+/**
+ * Module used for handling multipart/form-data (item image button).
+ */
 const upload = multer({
     storage: storage,
     fileFilter: function (req, file, callback) {
@@ -107,7 +132,7 @@ const upload = multer({
 }).single("profileImage"); //Field name and max count
 
 /**
- *Checks if the given file is an image.
+ * Checks if the given file is an image.
  */
 function checkFileType(file, callback) {
     const fileTypes = /jpeg|jpg|png|gif/;

@@ -38,7 +38,7 @@ html, body{
     color: #333;
     /*font-size: 40;*/
     height: 100%;
-
+    width: 100%;
 }
 
 /* Not used */
@@ -63,5 +63,8 @@ html, body{
 }
 
 table {
-    float: left;
+    table-layout: fixed;
+    max-width: 100%;
 }
+
+
