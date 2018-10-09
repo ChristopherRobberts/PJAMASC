@@ -1,19 +1,9 @@
 const bcrypt = require('bcryptjs');
-let dataHandler = require('../Integration/DatabaseConnection');
-
-//for storing passwords:
-//call getHash(password)
-//ex: let hash = encrypt.getHash(password);
-//return: hash value of password
-//store this hash value in db as password
-
-//for validating passwords:
-//call validatePassword(user, password)
-//returns true or false
+//let dataHandler = require('../Integration/DatabaseConnection');
 
 //public functions:
-//getHash(password)
-//validatePass(user, password)
+//getHash(password) returns hash value of password sent as argument
+//validatePass(password, hash) returns true/false
 module.exports = {
     getHash: function generateHash(password){
         let hash;
@@ -29,13 +19,6 @@ module.exports = {
 
     validatePass: function validatePassword(password, hash){
 
-        //asks dataHandler to provide the password of the user.
-        //let storedPassword = dataHandler.getPassword(user);
-        //if(storedPassword == null){
-        //    console.log('password not found');
-        //    return false;
-        //}
-        //validates the password: true/false and returns.
         return bcrypt.compareSync(password, hash)
 
     }
